@@ -45,6 +45,7 @@ body, input, button, textarea {
   font-weight: 500;
   font-size: 1.6rem;
   font-family: 'Poppins';
+  color: var(--color-text-base);
 }
 
 .container {
