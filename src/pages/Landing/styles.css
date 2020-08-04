@@ -10,10 +10,6 @@
   background-color: var(--color-primary);
 }
 
-.hero-image {
-  width: 100%;
-}
-
 .logo-container {
   text-align: center;
   margin-bottom: 3.2rem;
@@ -28,6 +24,10 @@
   font-size: 2.4rem;
   line-height: 4.6rem;
   margin-top: 0.8rem;
+}
+
+.hero-image {
+  width: 100%;
 }
 
 .buttons-container {
