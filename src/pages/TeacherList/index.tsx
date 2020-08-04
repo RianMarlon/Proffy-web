@@ -44,7 +44,7 @@ function TeacherList() {
           <p>
             Entusiasta das melhores técnicas de Física do mundo.
             <br /><br />
-            Apaixonado por fazer cálculos de explodir o cerébro. Físicos do mundo todo o reconhecem como o Isaac Newtow II.
+            Apaixonado por fazer cálculos de explodir o cérebro. Físicos do mundo todo o reconhecem como o Isaac Newtow II.
           </p>
 
           <footer>
