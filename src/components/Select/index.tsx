@@ -8,7 +8,8 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   options: Array<{
     value: string,
     label: string
-  }>
+  }>,
+  sort?: boolean
 }
 
 interface OptionItem {
@@ -16,24 +17,26 @@ interface OptionItem {
   label: string
 }
 
-const Select: React.FC<SelectProps> = ({ name, label, options, ...rest }) => {
+const Select: React.FC<SelectProps> = ({ name, label, sort, options, ...rest }) => {
 
-  const functionComparation = (a: OptionItem, b: OptionItem) => {
-    if (a.label > b.label) {
-      return 1;
+  if (sort) {
+    const functionComparation = (a: OptionItem, b: OptionItem) => {
+      if (a.label > b.label) {
+        return 1;
+      }
+  
+      else if (a.label < b.label) {
+        return -1;
+      }
+  
+      else {
+        return 0;
+      }
     }
-
-    else if (a.label < b.label) {
-      return -1;
-    }
-
-    else {
-      return 0;
-    }
+  
+    options.sort(functionComparation);
   }
-
-  options.sort(functionComparation);
-
+  
   return (
     <div className="select-block">
       <label htmlFor={name}>{label}</label>
