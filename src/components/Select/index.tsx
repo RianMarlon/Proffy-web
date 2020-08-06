@@ -21,11 +21,11 @@ const Select: React.FC<SelectProps> = ({ name, label, sort, options, ...rest }) 
 
   if (sort) {
     const functionComparation = (a: OptionItem, b: OptionItem) => {
-      if (a.label > b.label) {
+      if (a.value > b.value) {
         return 1;
       }
   
-      else if (a.label < b.label) {
+      else if (a.value < b.value) {
         return -1;
       }
   
