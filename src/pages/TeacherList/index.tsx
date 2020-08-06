@@ -11,8 +11,8 @@ function TeacherList() {
     <div id="page-teacher-list" className="container">
       <PageHeader title="Estes são os proffys disponíveis.">
         <form id="search-teachers">
-          <Input name="subject" label="Matéria" type="text" />
-          <Input name="week_day" label="Dia da semana" type="text" />
+          <Input name="subject" label="Matéria" />
+          <Input name="week_day" label="Dia da semana" />
           <Input name="time" label="Hora" type="time" />
         </form>
       </PageHeader>
