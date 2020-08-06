@@ -7,13 +7,18 @@
   margin-top: 3.2rem;
 }
 
-#search-teachers .input-block label {
+#search-teachers label {
   color: var(--color-text-in-primary);
 }
 
 #page-teacher-list main {
   margin: 3.2rem auto;
   width: 90%;
+}
+
+#search-teachers .select-block + .select-block,
+#search-teachers .select-block + .input-block {
+  margin-top: 1.4rem;
 }
 
 @media (min-width: 700px) {
@@ -29,7 +34,8 @@
     bottom: -28px;
   }
 
-  #search-teachers .input-block + .input-block {
+  #search-teachers .select-block + .select-block,
+  #search-teachers .select-block + .input-block {
     margin-top: 0;
   }
 

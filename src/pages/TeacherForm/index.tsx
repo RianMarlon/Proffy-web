@@ -47,6 +47,7 @@ function TeacherForm() {
               { value: 'Educação Física', label: 'Educação Física' },
               { value: 'Artes', label: 'Artes' }
             ]}
+            sort
           />
           <Input name="cost" label="Custo da sua hora por aula" type="url" />
         </fieldset>
