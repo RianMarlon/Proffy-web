@@ -12,7 +12,7 @@ function TeacherList() {
       <PageHeader title="Estes são os proffys disponíveis.">
         <form id="search-teachers">
           <Input name="subject" label="Matéria" type="text" />
-          <Input name="week-day" label="Dia da semana" type="text" />
+          <Input name="week_day" label="Dia da semana" type="text" />
           <Input name="time" label="Hora" type="time" />
         </form>
       </PageHeader>
