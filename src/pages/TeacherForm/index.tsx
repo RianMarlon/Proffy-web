@@ -50,7 +50,7 @@ function TeacherForm() {
               ]}
               sort
             />
-            <Input name="cost" label="Custo da sua hora por aula" type="url" />
+            <Input name="cost" label="Custo da sua hora por aula" />
           </fieldset>
 
           <fieldset>
