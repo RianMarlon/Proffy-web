@@ -64,6 +64,10 @@
   margin-top: 2.4rem;
 }
 
+#page-teacher-form main .schedule-item + .schedule-item {
+  margin-top: 4.5rem;
+}
+
 #page-teacher-form main label {
   color: var(--color-text-complement);
 }
@@ -132,6 +136,10 @@
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     column-gap: 1.6rem;
+  }
+  
+  #page-teacher-form main .schedule-item + .schedule-item {
+    margin-top: 3rem;
   }
 
   #page-teacher-form main fieldset .schedule-item .input-block {
