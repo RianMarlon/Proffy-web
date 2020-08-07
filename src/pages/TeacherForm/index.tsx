@@ -18,79 +18,81 @@ function TeacherForm() {
       />
 
       <main>
-        <fieldset>
-          <legend>Seus dados</legend>
-          <Input name="name" label="Nome completo" type="name" />
-          <Input name="avatar" label="Avatar" type="url" />
-          <Input name="whatsapp" label="WhatsApp" />
-          <Textarea name="biography" label="Biografia" />
-        </fieldset>
+        <form>
+          <fieldset>
+            <legend>Seus dados</legend>
+            <Input name="name" label="Nome completo" type="name" />
+            <Input name="avatar" label="Avatar" type="url" />
+            <Input name="whatsapp" label="WhatsApp" />
+            <Textarea name="biography" label="Biografia" />
+          </fieldset>
 
-        <fieldset>
-          <legend>Sobre a aula</legend>
-          <Select 
-            name="subject" 
-            label="Matéria"
-            options={[
-              { value: 'Biologia', label: 'Biologia' },
-              { value: 'Matemática', label: 'Matemática' },
-              { value: 'Física', label: 'Física' },
-              { value: 'Química', label: 'Quimíca' },
-              { value: 'Português', label: 'Português' },
-              { value: 'Redação', label: 'Redação' },
-              { value: 'História', label: 'História' },
-              { value: 'Filosofia', label: 'Filosofia' },
-              { value: 'Geografia', label: 'Geografia' },
-              { value: 'Sociologia', label: 'Sociologia' },
-              { value: 'Inglês', label: 'Inglês' },
-              { value: 'Espanhol', label: 'Espanhol' },
-              { value: 'Educação Física', label: 'Educação Física' },
-              { value: 'Artes', label: 'Artes' }
-            ]}
-            sort
-          />
-          <Input name="cost" label="Custo da sua hora por aula" type="url" />
-        </fieldset>
-
-        <fieldset>
-          <legend>
-            Horários disponíveis
-            <button type="button">
-              + Novo horário
-            </button>
-          </legend>
-
-          <div className="schedule-item">
+          <fieldset>
+            <legend>Sobre a aula</legend>
             <Select 
-              name="week_day" 
-              label="Dia da semana"
+              name="subject" 
+              label="Matéria"
               options={[
-                { value: '0', label: 'Domingo' },
-                { value: '1', label: 'Segunda-feira' },
-                { value: '2', label: 'Terça-feira' },
-                { value: '3', label: 'Quarta-feira' },
-                { value: '4', label: 'Quinta-feira' },
-                { value: '5', label: 'Sexta-feira' },
-                { value: '6', label: 'Sábado' }
+                { value: 'Biologia', label: 'Biologia' },
+                { value: 'Matemática', label: 'Matemática' },
+                { value: 'Física', label: 'Física' },
+                { value: 'Química', label: 'Quimíca' },
+                { value: 'Português', label: 'Português' },
+                { value: 'Redação', label: 'Redação' },
+                { value: 'História', label: 'História' },
+                { value: 'Filosofia', label: 'Filosofia' },
+                { value: 'Geografia', label: 'Geografia' },
+                { value: 'Sociologia', label: 'Sociologia' },
+                { value: 'Inglês', label: 'Inglês' },
+                { value: 'Espanhol', label: 'Espanhol' },
+                { value: 'Educação Física', label: 'Educação Física' },
+                { value: 'Artes', label: 'Artes' }
               ]}
               sort
             />
+            <Input name="cost" label="Custo da sua hora por aula" type="url" />
+          </fieldset>
 
-            <Input name="from" label="Das" type="time" />
-            <Input name="to" label="Até" type="time" />
-          </div>
-        </fieldset>
+          <fieldset>
+            <legend>
+              Horários disponíveis
+              <button type="button">
+                + Novo horário
+              </button>
+            </legend>
 
-        <footer>
-          <p>
-            <img src={warningIcon} alt="Aviso importante"/>
-            Importante! <br />
-            Prencha todos os dados
-          </p>
-          <button type="button">
-            Salvar cadastro
-          </button>
-        </footer>
+            <div className="schedule-item">
+              <Select 
+                name="week_day" 
+                label="Dia da semana"
+                options={[
+                  { value: '0', label: 'Domingo' },
+                  { value: '1', label: 'Segunda-feira' },
+                  { value: '2', label: 'Terça-feira' },
+                  { value: '3', label: 'Quarta-feira' },
+                  { value: '4', label: 'Quinta-feira' },
+                  { value: '5', label: 'Sexta-feira' },
+                  { value: '6', label: 'Sábado' }
+                ]}
+                sort
+              />
+
+              <Input name="from" label="Das" type="time" />
+              <Input name="to" label="Até" type="time" />
+            </div>
+          </fieldset>
+
+          <footer>
+            <p>
+              <img src={warningIcon} alt="Aviso importante"/>
+              Importante! <br />
+              Prencha todos os dados
+            </p>
+            <button type="button">
+              Salvar cadastro
+            </button>
+          </footer>
+        </form>
       </main>
     </div>
   );
