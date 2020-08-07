@@ -73,7 +73,6 @@ function TeacherForm() {
       .catch(() => {
         alert('Erro no cadastro');
       });
-
   }
 
   return (
