@@ -40,6 +40,21 @@
   padding-bottom: 1.6rem;
 }
 
+#page-teacher-form main fieldset button {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-family: 'Archivo';
+  font-size: 700;
+  font-weight: 300;
+  cursor: pointer;
+  transition: color 0.2s linear;
+}
+
+#page-teacher-form main fieldset button:hover {
+  color: var(--color-primary-dark);
+}
+
 #page-teacher-form main fieldset .input-block + .textarea-block,
 #page-teacher-form main fieldset .select-block + .input-block {
   margin-top: 2.4rem;
@@ -103,6 +118,16 @@
 
   #page-teacher-form main fieldset {
     margin: 0 6.4rem;
+  }
+
+  #page-teacher-form main .schedule-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    column-gap: 1.6rem;
+  }
+
+  #page-teacher-form main fieldset .schedule-item .input-block {
+    margin-top: 0px;
   }
 
   #page-teacher-form main footer {

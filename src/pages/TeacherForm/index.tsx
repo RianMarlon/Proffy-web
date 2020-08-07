@@ -13,7 +13,7 @@ function TeacherForm() {
   return (
     <div id="page-teacher-form" className="content">
       <PageHeader 
-        title="Que incrível que voce quer dar aulas." 
+        title="Que incrível que você quer dar aulas." 
         description="O primeiro passo é preencher esse formulário de inscrição."  
       />
 
@@ -50,6 +50,35 @@ function TeacherForm() {
             sort
           />
           <Input name="cost" label="Custo da sua hora por aula" type="url" />
+        </fieldset>
+
+        <fieldset>
+          <legend>
+            Horários disponíveis
+            <button type="button">
+              + Novo horário
+            </button>
+          </legend>
+
+          <div className="schedule-item">
+            <Select 
+              name="week_day" 
+              label="Dia da semana"
+              options={[
+                { value: '0', label: 'Domingo' },
+                { value: '1', label: 'Segunda-feira' },
+                { value: '2', label: 'Terça-feira' },
+                { value: '3', label: 'Quarta-feira' },
+                { value: '4', label: 'Quinta-feira' },
+                { value: '5', label: 'Sexta-feira' },
+                { value: '6', label: 'Sábado' }
+              ]}
+              sort
+            />
+
+            <Input name="from" label="Das" type="time" />
+            <Input name="to" label="Até" type="time" />
+          </div>
         </fieldset>
 
         <footer>
