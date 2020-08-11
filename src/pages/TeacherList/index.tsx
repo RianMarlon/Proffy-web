@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 
 import PageHeader from '../../components/PageHeader';
 import TeacherItem, { Teacher } from '../../components/TeacherItem';
@@ -15,9 +15,7 @@ function TeacherList() {
   const [week_day, setWeekDay] = useState('');
   const [time, setTime] = useState('');
 
-  async function searchTeachers(e: FormEvent) {
-    e.preventDefault();
-
+  async function searchTeachers() {
     const params = {
       subject,
       week_day,
@@ -28,10 +26,26 @@ function TeacherList() {
     setTeachers(response.data);
   }
 
+  useEffect(() => {
+    const paramsInitial = {
+      subject: '',
+      week_day: '',
+      time: ''
+    }
+
+    api.get('/classes', { params: paramsInitial } )
+      .then((response) => setTeachers(response.data));
+  }, []);
+
+  function handleSearchTeachers(e: FormEvent) {
+    e.preventDefault();
+    searchTeachers();
+  }
+
   return (
     <div id="page-teacher-list" className="container">
       <PageHeader title="Estes são os proffys disponíveis.">
-        <form id="search-teachers" onSubmit={searchTeachers}>
+        <form id="search-teachers" onSubmit={handleSearchTeachers}>
           <Select 
             name="subject" 
             label="Matéria"
