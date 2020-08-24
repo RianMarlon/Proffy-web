@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -8,8 +8,10 @@ import backIcon from '../../assets/images/icons/back.svg';
 import './styles.css';
 
 interface PageHeaderProps {
+  namePage: string,
   title: string,
-  description?: string
+  description?: string,
+  headerRight?: ReactElement,
 }
 
 const PageHeader: React.FC<PageHeaderProps> = (props) => {
@@ -19,12 +21,23 @@ const PageHeader: React.FC<PageHeaderProps> = (props) => {
         <Link to="/">
           <img src={backIcon} alt="Voltar"/>
         </Link>
+        <p>{ props.namePage }</p>
         <img src={logoImg} alt="Proffy"/>
       </div>
 
       <div className="header-content">
-        <strong>{props.title}</strong>
-        {props.description && <p>{props.description}</p>}
+        <div className="title">
+          <strong>{props.title}</strong>
+          {props.description && <p>{props.description}</p>}
+        </div>
+        { props.headerRight && (
+          <div className="right">
+            { props.headerRight }
+          </div>
+        )}
+      </div>
+
+      <div className="header-children">
         {props.children}
       </div>
     </header>
