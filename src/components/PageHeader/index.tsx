@@ -32,7 +32,7 @@ const PageHeader: React.FC<PageHeaderProps> = (props) => {
         </div>
         { props.headerRight && (
           <div className="right">
-            { props.headerRight }
+            {props.headerRight}
           </div>
         )}
       </div>
