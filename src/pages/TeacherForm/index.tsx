@@ -7,6 +7,7 @@ import Textarea from '../../components/Textarea';
 import Select from '../../components/Select';
 
 import warningIcon from '../../assets/images/icons/warning.svg';
+import rocketIcon from '../../assets/images/icons/rocket.svg';
 
 import api from '../../services/api';
 
@@ -77,9 +78,16 @@ function TeacherForm() {
 
   return (
     <div id="page-teacher-form" className="content">
-      <PageHeader 
-        title="Que incrível que você quer dar aulas." 
-        description="O primeiro passo é preencher esse formulário de inscrição."  
+      <PageHeader
+        namePage="Dar aulas"
+        title="Que incrível que você quer dar aulas" 
+        description="O primeiro passo é preencher esse formulário de inscrição"
+        headerRight={(
+          <div className="header-right">
+            <img src={rocketIcon} alt="" />
+            <p>Prepare-se! Vai ser o máximo</p>
+          </div>
+        )}
       />
 
       <main>
