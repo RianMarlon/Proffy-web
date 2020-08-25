@@ -1,41 +1,41 @@
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState, useEffect, FormEvent, useContext } from 'react';
 
 import PageHeader from '../../components/PageHeader';
-import TeacherItem, { Teacher } from '../../components/TeacherItem';
+import TeacherItem from '../../components/TeacherItem';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 
+import TeachersContext, { Teacher } from '../../contexts/TeachersContext';
+
+import smileIcon from '../../assets/images/icons/smile.svg';
+
 import './styles.css';
-import api from '../../services/api';
 
 function TeacherList() {
-  const [teachers, setTeachers] = useState([]);
+  const { teachers, getTeachers, quantityTeachers } = useContext(TeachersContext);
 
   const [subject, setSubject] = useState('');
-  const [week_day, setWeekDay] = useState('');
+  const [weekDay, setWeekDay] = useState('');
   const [time, setTime] = useState('');
 
-  async function searchTeachers() {
-    const params = {
-      subject,
-      week_day,
-      time
-    }
-    const response = await api.get('/classes', { params } );
-
-    setTeachers(response.data);
-  }
+  const [page, setPage] = useState(1);
+  const perPage = 9;
 
   useEffect(() => {
+    searchTeachers();
+  }, []);
+
+  async function searchTeachers() {
     const paramsInitial = {
-      subject: '',
-      week_day: '',
-      time: ''
+      subject: subject,
+      week_day: weekDay,
+      time: time,
+      page: page,
+      per_page: perPage,
     }
 
-    api.get('/classes', { params: paramsInitial } )
-      .then((response) => setTeachers(response.data));
-  }, []);
+    await getTeachers(paramsInitial);
+  }
 
   function handleSearchTeachers(e: FormEvent) {
     e.preventDefault();
@@ -44,7 +44,17 @@ function TeacherList() {
 
   return (
     <div id="page-teacher-list" className="container">
-      <PageHeader title="Estes são os proffys disponíveis.">
+      <PageHeader 
+        namePage="Estudar" 
+        title="Estes são os proffys disponíveis"
+        headerRight={
+          <div className="header-right">
+            <img src={smileIcon} alt="" />
+            <p>Nós temos {quantityTeachers} {' '}
+            {quantityTeachers > 1 ? 'professores' : 'professor'}</p>
+          </div>
+        }
+      >
         <form id="search-teachers" onSubmit={handleSearchTeachers}>
           <Select 
             name="subject" 
@@ -72,7 +82,7 @@ function TeacherList() {
           <Select 
             name="week_day" 
             label="Dia da semana"
-            value={week_day}
+            value={weekDay}
             onChange={(e) => setWeekDay(e.target.value)}
             options={[
               { value: '0', label: 'Domingo' },
@@ -100,7 +110,7 @@ function TeacherList() {
       </PageHeader>
 
       <main>
-        {teachers.map((teacher: Teacher) => {
+        { teachers.length > 0 && teachers.map((teacher: Teacher) => {
           return <TeacherItem key={teacher.id} teacher={teacher} />
         })}
       </main>
