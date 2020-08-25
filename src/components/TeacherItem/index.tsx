@@ -1,22 +1,14 @@
 import React from 'react';
 
+import api from '../../services/api';
+import { Schedule, Teacher } from '../../contexts/TeachersContext';
+
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg';
 
 import './styles.css';
-import api from '../../services/api';
-
-export interface Teacher {
-  id: number,
-  avatar: string,
-  biography: string,
-  cost: number,
-  name: string,
-  subject: string,
-  whatsapp: string
-}
 
 interface TeacherItemProps {
-  teacher: Teacher
+  teacher: Teacher,
 }
 
 const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
@@ -24,6 +16,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
     const data = { id_user: teacher.id };
     api.post('/connections', data);
   }
+
   return (
     <article className="teacher-item">
       <header>
@@ -38,8 +31,33 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
       </header>
 
       <p>
-        {teacher.biography}
+        {teacher.biography.split('\n').map((elem: string, index: number) => {
+          return (
+            <>
+              {index > 0 && <br />}
+              { elem }
+            </>
+          )
+        })}
       </p>
+
+      <div className="schedules">
+        { teacher.schedules.map((schedule: Schedule) => {
+          return (
+            <div key={schedule.id} className="schedule">
+              <div className="day">
+                <p className="label">Dia</p>
+                <p className="value">{ schedule.week_day }</p>
+              </div>
+              <div className="time">
+                <p className="label">Horário</p>
+                <p className="value">{ schedule.from.split(':')[0] }h 
+                - { schedule.to.split(':')[0] }h</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
 
       <footer>
         <p>
