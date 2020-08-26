@@ -56,6 +56,19 @@
   width: 90%;
 }
 
+#page-teacher-list main .loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+}
+
+#page-teacher-list main .loading > img {
+  width: 50px;
+}
+
 #search-teachers .select-block + .select-block,
 #search-teachers .select-block + .input-block {
   margin-top: 1.4rem;
