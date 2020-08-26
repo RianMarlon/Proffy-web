@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEvent, useContext } from 'react';
+import React, { useState, useEffect, FormEvent, useContext, useRef } from 'react';
 
 import PageHeader from '../../components/PageHeader';
 import TeacherItem from '../../components/TeacherItem';
@@ -7,26 +7,57 @@ import Select from '../../components/Select';
 
 import TeachersContext, { Teacher } from '../../contexts/TeachersContext';
 
+import loadingAnimated from '../../assets/images/loading.svg';
 import smileIcon from '../../assets/images/icons/smile.svg';
 
 import './styles.css';
 
 function TeacherList() {
-  const { teachers, getTeachers, quantityTeachers } = useContext(TeachersContext);
+  const { teachers, getTeachers, quantityTeachers, quantityClasses } = useContext(TeachersContext);
 
   const [subject, setSubject] = useState('');
   const [weekDay, setWeekDay] = useState('');
   const [time, setTime] = useState('');
 
   const [page, setPage] = useState(1);
-  const perPage = 9;
+  const perPage = 2;
+
+  const [showLoading, setShowLoading] = useState(false);
+  const [scrollRadio, setScrollRadio] = useState(Number);
+
+  const scrollObservable = useRef<HTMLDivElement>(null);
+  const intersectionObserver = new IntersectionObserver((entries) => {
+    const radio = entries[0].intersectionRatio;
+    setScrollRadio(radio);
+  });
 
   useEffect(() => {
-    searchTeachers();
-  }, []);
+    loadTeachers();
+    if (scrollObservable.current) {
+      intersectionObserver.observe(scrollObservable.current);
+    }
+    
+    return () => {
+      intersectionObserver.disconnect();
+    }
 
-  async function searchTeachers() {
-    const paramsInitial = {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); 
+
+  useEffect(() => {
+    if (scrollRadio > 0) {
+      loadTeachers();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollRadio]);
+
+  async function loadTeachers() {
+    if (quantityClasses !== 0 && perPage * page >= quantityClasses + perPage) {
+      return;
+    }
+
+    const params = {
       subject: subject,
       week_day: weekDay,
       time: time,
@@ -34,12 +65,26 @@ function TeacherList() {
       per_page: perPage,
     }
 
-    await getTeachers(paramsInitial);
+    setShowLoading(true);
+
+    await getTeachers(params);
+    
+    setShowLoading(false);
+    setPage(page + 1);
   }
 
-  function handleSearchTeachers(e: FormEvent) {
+  async function handleSearchTeachers(e: FormEvent) {
     e.preventDefault();
-    searchTeachers();
+    const params = {
+      subject: subject,
+      week_day: weekDay,
+      time: time,
+      page: 1,
+      per_page: perPage,
+    }
+
+    await getTeachers(params);
+    setPage(2);
   }
 
   return (
@@ -110,9 +155,17 @@ function TeacherList() {
       </PageHeader>
 
       <main>
-        { teachers.length > 0 && teachers.map((teacher: Teacher) => {
-          return <TeacherItem key={teacher.id} teacher={teacher} />
-        })}
+          { teachers.length > 0 && teachers.map((teacher: Teacher) => {
+              return <TeacherItem key={teacher.id} teacher={teacher} />
+          })}
+
+          <div ref={scrollObservable}></div>
+
+          { teachers.length > 0 && showLoading && (
+            <div className="loading">
+              <img src={loadingAnimated} alt=""/>
+            </div>
+          )}
       </main>
     </div>
   );
