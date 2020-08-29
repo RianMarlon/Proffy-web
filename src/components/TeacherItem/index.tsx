@@ -33,11 +33,11 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
       <p>
         {teacher.biography.split('\n').map((elem: string, index: number) => {
           return (
-            <>
+            <React.Fragment key={`${teacher.id}-${index}`}>
               {index > 0 && <br />}
               { elem }
-            </>
-          )
+            </React.Fragment>
+          );
         })}
       </p>
 
