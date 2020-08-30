@@ -1,0 +1,101 @@
+.success-container {
+  width: 100%;
+  height: 100%;
+  padding: 4rem 7rem;
+  background-color: var(--color-primary);
+}
+
+.success-container > div {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url('../../assets/images/success-background.svg');
+  background-size: contain;
+  background-position: center;
+}
+
+.success-container .text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.success-container .text-container img {
+  width: 9rem;
+}
+
+.success-container .text-container h1 {
+  margin-top: 3rem;
+  color: var(--color-box-base);
+  font-family: 'Archivo';
+  font-size: 3rem;
+  line-height: 4rem;
+  text-align: center;
+}
+
+.success-container .text-container p {
+  margin-top: 2rem;
+  margin-right: 5%;
+  margin-left: 5%;
+  color: var(--color-text-in-primary);
+  font-family: 'Poppins';
+  font-size: 1.5rem;
+  line-height: 3rem;
+  text-align: center;
+}
+
+.success-container .button {
+  margin-top: 6rem;
+  padding: 2rem 4rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--color-secondary);
+  border-radius: 8px;
+  text-decoration: none;
+
+  transition: background-color 0.2s linear;
+}
+
+.success-container .button:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+.success-container .button p {  
+  font-family: 'Archivo';
+  font-weight: 300;
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  text-align: center;
+
+  color: var(--color-box-base);
+}
+
+@media(min-width: 700px) {
+  .success-container .text-container p {
+    margin-right: 15%;
+    margin-left: 15%;
+  }
+}
+
+@media(min-width: 1100px) {
+  .success-container {
+    padding: 10rem 14rem;
+  }
+
+  .success-container .text-container h1 {
+    font-size: 4rem;
+  }
+
+  .success-container .text-container p {
+    font-size: 1.75rem;
+  }
+}
