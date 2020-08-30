@@ -85,10 +85,6 @@
   margin-top: 4.5rem;
 }
 
-#page-teacher-form main label {
-  color: var(--color-text-complement);
-}
-
 #page-teacher-form main footer {
   padding: 4rem 2.4rem;
   background-color: var(--color-box-base);
