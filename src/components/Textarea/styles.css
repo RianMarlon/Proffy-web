@@ -10,6 +10,11 @@
   font-size: 1.4rem;
 }
 
+.textarea-block label {
+  color: var(--color-text-complement);
+  font-size: 1.4rem;
+}
+
 .textarea-block textarea {
   width: 100%;
   height: 16rem;
