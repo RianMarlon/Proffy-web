@@ -12,7 +12,7 @@ const InputLabel: React.FC<InputLabelProps> = ({ name, label, type, value, onCha
   const classNameInputBlock = `input-label-block ${buttonRight && 'has-button-right'}`;
 
   useEffect(() => {
-    if (value && value.toString().trim()) {
+    if (value && value.toString()) {
       setClassNameInput('focus');
     }
 

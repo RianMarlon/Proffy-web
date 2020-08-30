@@ -1,0 +1,75 @@
+.input-label-block {
+  position: relative;
+  height: 100%;
+}
+
+.input-label-block input {
+  padding: 2.5rem;
+  width: 100%;
+
+  background-color: var(--color-box-footer);
+  color: var(--color-text-base);
+  font-size: 1.8rem;
+  line-height: 2.25rem;
+  
+  border-radius: 0.8rem;
+  border: 1px solid var(--color-line-in-white);
+  outline: 0;
+
+  z-index: 10;
+}
+
+.input-label-block.has-button-right input {
+  padding-right: 6.75rem;
+}
+
+.input-label-block input:focus, .input-label-block input.focus {
+  padding-top: 3.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.input-label-block:focus-within::after {
+  content: '';
+  height: calc(100% - 1rem * 2);
+  width: 2px;
+  background-color: var(--color-primary-light);
+  position: absolute;
+  left: 0;
+  top: 1rem;
+  bottom: 1rem;
+}
+
+.input-label-block label{
+  height: 7.3rem;
+  position: absolute; 
+  top: 0;
+  bottom: 0;
+  left: 2.5rem;
+  
+  display: flex;
+  align-items: center;
+  
+  color: var(--color-text-complement);
+  font-family: 'Poppins';
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 2rem;
+}
+
+.input-label-block input:focus + label, 
+.input-label-block input.focus + label {
+  display: inline-block;
+  padding-top: 2.25rem;
+  transform: translateY(-1rem);
+  font-size: 1.25rem;
+}
+
+.input-label-block > .button-right {
+  position: absolute; 
+  top: 0;
+  bottom: 0;
+  right: 2.5rem;
+  
+  display: flex;
+  align-items: center;
+}
