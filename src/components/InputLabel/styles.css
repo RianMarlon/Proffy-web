@@ -20,7 +20,7 @@
 }
 
 .input-label-block.has-button-right input {
-  padding-right: 6.75rem;
+  padding-right: 7rem;
 }
 
 .input-label-block input:focus, .input-label-block input.focus {
@@ -68,8 +68,10 @@
   position: absolute; 
   top: 0;
   bottom: 0;
-  right: 2.5rem;
-  
+  right: 0;
+  height: 7.5rem;
+  width: 6.5rem;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
