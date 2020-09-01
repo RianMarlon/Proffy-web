@@ -19,6 +19,7 @@
   --color-button-text: #FFFFFF;
   --color-box-base: #FFFFFF;
   --color-box-footer: #FAFAFC;
+  --color-button-disabled: #DCDCE6;
 }
 
 * {
@@ -27,8 +28,10 @@
   box-sizing: border-box;
 }
 
-html, body, #root {
-  height: 100vh;
+html,
+body,
+#root {
+  min-height: 100vh;
 }
 
 body {
@@ -41,7 +44,10 @@ body {
   justify-content: center;
 }
 
-body, input, button, textarea {
+body,
+input,
+button,
+textarea {
   font-weight: 500;
   font-size: 1.6rem;
   font-family: 'Poppins';
