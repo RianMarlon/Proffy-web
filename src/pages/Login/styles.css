@@ -5,11 +5,11 @@
   width: 100%;
 }
 
-.proffy-block-left {
+.login-container .proffy-block-left {
   height: 300px;
 }
 
-.login-content {
+.login-container .login-content {
   padding-top: 5rem;
   padding-right: 2.5rem;
   padding-bottom: 5rem;
@@ -34,23 +34,22 @@
   line-height: 3rem;
 }
 
-form .extras-block {
+.login-content form .extras-block {
   margin-top: 2.75rem;
-  margin-bottom: 2.75rem;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-form .extras-block .checkbox-remember {
+.login-content form .extras-block .checkbox-remember {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   margin-right: 4rem;
 }
 
-form .extras-block > a {
+.login-content form .extras-block > a {
   color: var(--color-text-complement);
   font-family: 'Poppins';
   font-size: 1.5rem;
@@ -58,14 +57,14 @@ form .extras-block > a {
   text-align: right;
 }
 
-form .extras-block .checkbox-remember #remember-me {
+.login-content form .extras-block .checkbox-remember #remember-me {
   opacity: 0;
   height: 0;
   width: 0;
   z-index: -1;
 }
 
-form .extras-block .checkbox-remember .check-after {
+.login-content form .extras-block .checkbox-remember .check-after {
   top: 0;
   left: 0;
   margin-right: 1rem;
@@ -77,7 +76,8 @@ form .extras-block .checkbox-remember .check-after {
   background-color: var(--color-title-in-primary);
 }
 
-form .extras-block .checkbox-remember #remember-me:checked + .check-after {
+.login-content form .extras-block .checkbox-remember 
+#remember-me:checked + .check-after {
   background-image: url('../../assets/images/icons/check.svg');
   background-position: center;
   background-repeat: no-repeat;
@@ -85,18 +85,19 @@ form .extras-block .checkbox-remember #remember-me:checked + .check-after {
   background-color: var(--color-secondary);
 }
 
-form .extras-block .checkbox-remember .checkbox-label {
+.login-content form .extras-block .checkbox-remember .checkbox-label {
   font-family: 'Poppins';
   font-size: 1.5rem;
   line-height: 2.5rem;
   color: var(--color-text-complement);
 }
 
-form .button-submit {
+.login-content form .button-submit {
   width: 100%;
-  border: none;
-  outline: none;
+  margin-top: 4rem;
   padding: 1.6rem 0;
+  outline: none;
+  border: none;
   border-radius: 8px;
   color: var(--color-text-complement);
   background-color: var(--color-button-disabled);
@@ -107,24 +108,24 @@ form .button-submit {
   line-height: 2.5rem;
 }
 
-form .button-submit:enabled {
+.login-content form .button-submit:enabled {
   color: var(--color-title-in-primary);
   background-color: var(--color-secondary);
   transition: 0.2s background-color linear;
 }
 
-form .button-submit:enabled:hover {
+.login-content form .button-submit:enabled:hover {
   background-color: var(--color-secondary-dark);
 }
 
-.footer {
+.login-content .footer {
   margin-top: 7rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.footer p {
+.login-content .footer p {
   display: flex;
   flex-direction: column;
   font-family: 'Poppins';
@@ -134,17 +135,17 @@ form .button-submit:enabled:hover {
   color: var(--color-text-base);
 }
 
-.footer p a {
+.login-content .footer p a {
   color: var(--color-text-base);
   font-weight: 600;
   transition: 0.2s opacity linear;
 }
 
-.footer p a:hover {
+.login-content .footer p a:hover {
   opacity: 0.9;
 }
 
-.footer span img {
+.login-content .footer span img {
   margin-left: 0.75rem;
 }
 
@@ -153,13 +154,13 @@ form .button-submit:enabled:hover {
     flex-direction: row;
   }
 
-  .proffy-block-left {
+  .login-container .proffy-block-left {
     width: 45%;
     min-height: 600px;
     height: 100%;
   }
 
-  .login-content {  
+  .login-container .login-content {  
     padding-top: 0;
     padding-right: 0rem;
     padding-bottom: 0rem;
