@@ -10,15 +10,10 @@ interface InputLabelProps extends InputProps {
 
 const InputLabel: React.FC<InputLabelProps> = ({ name, label, type, value, onChange, buttonRight }) => {
   const [classNameInput, setClassNameInput] = useState('');
-  const classNameInputBlock = ['input-label-block'];
-
-  useEffect(() => {
-    if (buttonRight) {
-      classNameInputBlock.push('has-button-right')
-    }
-
-    // eslint-disable-next-line
-  }, []);
+  const classNameInputBlock = buttonRight 
+    ? 'input-label-block has-button-right' 
+    : 'input-label-block'
+  ;
 
   useEffect(() => {
     if (value && value.toString()) {
@@ -31,7 +26,7 @@ const InputLabel: React.FC<InputLabelProps> = ({ name, label, type, value, onCha
   }, [value]);
 
   return (
-    <div className={classNameInputBlock.join(' ')}>
+    <div className={classNameInputBlock}>
       <input className={classNameInput} 
         type={type} id={name} value={value} onChange={onChange} />
       <label htmlFor={name}>{label}</label>
