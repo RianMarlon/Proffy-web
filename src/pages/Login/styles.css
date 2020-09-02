@@ -1,0 +1,175 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+.proffy-block-left {
+  height: 300px;
+}
+
+.login-content {
+  padding-top: 5rem;
+  padding-right: 2.5rem;
+  padding-bottom: 5rem;
+  padding-left: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.login-content > div {
+  max-width: 335px;
+}
+
+.login-content > div > h1 {
+  margin-bottom: 3rem;
+  color: var(--color-text-title);
+  font-family: 'Poppins';
+  font-weight: 600;
+  font-size: 3rem;
+  line-height: 3rem;
+}
+
+form .extras-block {
+  margin-top: 2.75rem;
+  margin-bottom: 2.75rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form .extras-block .checkbox-remember {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 4rem;
+}
+
+form .extras-block > a {
+  color: var(--color-text-complement);
+  font-family: 'Poppins';
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+  text-align: right;
+}
+
+form .extras-block .checkbox-remember #remember-me {
+  opacity: 0;
+  height: 0;
+  width: 0;
+  z-index: -1;
+}
+
+form .extras-block .checkbox-remember .check-after {
+  top: 0;
+  left: 0;
+  margin-right: 1rem;
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-line-in-white);
+  border-radius: 8px;
+  background-color: var(--color-title-in-primary);
+}
+
+form .extras-block .checkbox-remember #remember-me:checked + .check-after {
+  background-image: url('../../assets/images/icons/check.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.5rem 1.5rem;
+  background-color: var(--color-secondary);
+}
+
+form .extras-block .checkbox-remember .checkbox-label {
+  font-family: 'Poppins';
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+  color: var(--color-text-complement);
+}
+
+form .button-submit {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 1.6rem 0;
+  border-radius: 8px;
+  color: var(--color-text-complement);
+  background-color: var(--color-button-disabled);
+  text-align: center;
+  font-family: 'Archivo';
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 2.5rem;
+}
+
+form .button-submit:enabled {
+  color: var(--color-title-in-primary);
+  background-color: var(--color-secondary);
+  transition: 0.2s background-color linear;
+}
+
+form .button-submit:enabled:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+.footer {
+  margin-top: 7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.footer p {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins';
+  font-size: 1.7rem;
+  line-height: 2.7rem;
+  
+  color: var(--color-text-base);
+}
+
+.footer p a {
+  color: var(--color-text-base);
+  font-weight: 600;
+  transition: 0.2s opacity linear;
+}
+
+.footer p a:hover {
+  opacity: 0.9;
+}
+
+.footer span img {
+  margin-left: 0.75rem;
+}
+
+@media(min-width: 1100px) {
+  .login-container {
+    flex-direction: row;
+  }
+
+  .proffy-block-left {
+    width: 45%;
+    min-height: 600px;
+    height: 100%;
+  }
+
+  .login-content {  
+    padding-top: 0;
+    padding-right: 0rem;
+    padding-bottom: 0rem;
+    padding-left: 0rem;
+    width: 55%;
+    min-height: 600px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
