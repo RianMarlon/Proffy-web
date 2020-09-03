@@ -1,0 +1,144 @@
+.cadastre-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+.cadastre-container .proffy-block-right {
+  order: 1;
+  height: 300px;
+}
+
+.cadastre-container .cadastre-content {
+  order: 2;
+  padding-top: 2rem;
+  padding-right: 2.5rem;
+  padding-bottom: 5rem;
+  padding-left: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cadastre-content > div {
+  justify-self: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  max-width: 333px;
+}
+
+.cadastre-content .header {
+  align-self: flex-start;
+  justify-self: flex-start;
+  margin-bottom: 6rem;
+}
+
+.cadastre-content .header a {
+  height: 3.2rem;
+  transition: 0.2s opacity linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cadastre-content .header a:hover {
+  opacity: 0.8;
+}
+
+.cadastre-content .body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+}
+
+.cadastre-content .form-container > h1 {
+  margin-bottom: 2rem;
+  color: var(--color-text-title);
+  font-family: 'Poppins';
+  font-weight: 600;
+  font-size: 3rem;
+  line-height: 3rem;
+}
+
+.cadastre-content .form-container > p {
+  margin-top: 0;
+  width: 80%;
+  color: var(--color-text-title);
+  font-family: 'Poppins';
+  font-size: 1.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.cadastre-content .form-container form .button-submit {
+  margin-top: 4rem;
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  padding: 1.6rem 0;
+  color: var(--color-text-complement);
+  background-color: var(--color-button-disabled);
+  font-family: 'Archivo';
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 2.5rem;
+  text-align: center;
+}
+
+.cadastre-content .form-container form .button-submit:enabled {
+  color: var(--color-title-in-primary);
+  background-color: var(--color-secondary);
+  transition: 0.2s background-color linear;
+}
+
+.cadastre-content .form-container form .button-submit:enabled:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+@media(min-width: 1100px) {
+  .cadastre-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  .cadastre-container .proffy-block-right {
+    order: 2;
+    width: 45%;
+    min-height: 750px;
+    height: 100%;
+  }
+
+  .cadastre-container .cadastre-content {
+    order: 1;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    min-height: 750px;
+    width: 55%;
+  }
+
+  .cadastre-content .header {
+    margin-bottom: 0;
+  }
+
+  .cadastre-content .header-back {
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .cadastre-content > div {
+    height: 100%;
+    width: 60%;
+  }
+}
