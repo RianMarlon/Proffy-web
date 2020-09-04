@@ -1,0 +1,144 @@
+.forgot-password-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+.proffy-block-right {
+  order: 1;
+  height: 300px;
+}
+
+.forgot-password-content {
+  order: 2;
+  padding-top: 2rem;
+  padding-right: 2.5rem;
+  padding-bottom: 5rem;
+  padding-left: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.forgot-password-content > div {
+  justify-self: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  max-width: 333px;
+}
+
+.forgot-password-content .header {
+  align-self: flex-start;
+  justify-self: flex-start;
+  margin-bottom: 6rem;
+}
+
+.forgot-password-content .header a {
+  height: 3.2rem;
+  transition: 0.2s opacity linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.forgot-password-content .header a:hover {
+  opacity: 0.8;
+}
+
+.forgot-password-content .body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+}
+
+.forgot-password-content .form-container > h1 {
+  margin-bottom: 2rem;
+  color: var(--color-text-title);
+  font-family: 'Poppins';
+  font-weight: 600;
+  font-size: 3rem;
+  line-height: 3rem;
+}
+
+.forgot-password-content .form-container > p {
+  margin-top: 0;
+  width: 80%;
+  color: var(--color-text-title);
+  font-family: 'Poppins';
+  font-size: 1.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.forgot-password-content .form-container form .button-submit {
+  margin-top: 4rem;
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  padding: 1.6rem 0;
+  color: var(--color-text-complement);
+  background-color: var(--color-button-disabled);
+  font-family: 'Archivo';
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 2.5rem;
+  text-align: center;
+}
+
+.forgot-password-content .form-container form .button-submit:enabled {
+  color: var(--color-title-in-primary);
+  background-color: var(--color-secondary);
+  transition: 0.2s background-color linear;
+}
+
+.forgot-password-content .form-container form .button-submit:enabled:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+@media(min-width: 1100px) {
+  .forgot-password-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  .proffy-block-right {
+    order: 2;
+    width: 45%;
+    min-height: 600px;
+    height: 100%;
+  }
+
+  .forgot-password-content {
+    order: 1;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    min-height: 600px;
+    width: 55%;
+  }
+
+  .forgot-password-content .header {
+    margin-bottom: 0;
+  }
+
+  .forgot-password-content .header-back {
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .forgot-password-content > div {
+    height: 100%;
+    width: 60%;
+  }
+}
