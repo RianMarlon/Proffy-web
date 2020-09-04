@@ -6,13 +6,14 @@ import showIcon from '../../assets/images/icons/show.svg';
 import doNotShowIcon from '../../assets/images/icons/do-not-show.svg';
 
 import './styles.css';
+import { InputProps } from '../Input';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputPasswordProps extends InputProps {
   name: string,
   label: string,
 }
 
-const InputPasword: React.FC<InputProps> = ({ name, label, value, onChange  }) => {
+const InputPasword: React.FC<InputPasswordProps> = ({ name, label, value, onChange, required }) => {
   const [typeInput, setTypeInput] = useState('password');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -28,8 +29,9 @@ const InputPasword: React.FC<InputProps> = ({ name, label, value, onChange  }) =
 
   return (
     <div className="input-password-block">
-      <InputLabel type={typeInput} name={name} label={label} 
-        value={value} onChange={onChange} 
+      <InputLabel type={typeInput} name={name} 
+        label={label} value={value} onChange={onChange}
+        required={required}
         buttonRight={
           <button className="button-show-password" type="button" onClick={() => setShowPassword(!showPassword)}>
             { showPassword 
@@ -37,7 +39,8 @@ const InputPasword: React.FC<InputProps> = ({ name, label, value, onChange  }) =
               : <img src={showIcon} alt="Mostrar senha" />
             }
           </button>
-        }/>
+        }
+      />
     </div>
   );
 }
