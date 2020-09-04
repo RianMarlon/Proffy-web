@@ -11,6 +11,10 @@
   font-size: 1.4rem;
 }
 
+.input-block label.error {
+  color: var(--color-text-error);
+}
+
 .input-block input {
   width: 100%;
   height: 5.6rem;
