@@ -6,6 +6,7 @@ import TeacherForm from './pages/TeacherForm';
 import { TeachersProvider } from './contexts/TeachersContext';
 import Login from './pages/Login';
 import Cadastre from './pages/Cadastre';
+import ForgotPassword from './pages/ForgotPassword';
 
 function Routes() {
   return (
@@ -14,6 +15,7 @@ function Routes() {
         <Route path="/" exact component={Login} />
         <Route path="/cadastre" component={Cadastre} />
         <Route path="/home" component={Landing} />
+        <Route path="/forgot-password" component={ForgotPassword} />
         <Route path="/study" component={TeacherList} />
         <Route path="/give-classes" component={TeacherForm} />
       </TeachersProvider>

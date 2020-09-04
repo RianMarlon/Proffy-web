@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import InputLabel from '../InputLabel';
 
