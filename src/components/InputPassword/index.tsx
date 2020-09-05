@@ -31,7 +31,7 @@ const InputPasword: React.FC<InputPasswordProps> = ({ name, label, labelError, e
     <div className="input-password-block">
       <InputLabel type={typeInput} name={name} label={label} 
         labelError={labelError} error={error}
-        value={value} onChange={onChange} aria-required={required}
+        value={value} onChange={onChange} required={required}
         buttonRight={
           <button className="button-show-password" type="button" onClick={() => setShowPassword(!showPassword)}>
             { showPassword 

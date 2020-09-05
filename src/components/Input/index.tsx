@@ -10,13 +10,13 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input: React.FC<InputProps> = ({ label, labelError, error, ...rest }) => {
-  const classNameLabel = error ? 'error' : '';
+  const classNameLabel = error && rest.required ? 'error' : '';
 
   return (
     <div className="input-block">
       <label className={classNameLabel} 
         htmlFor={rest.name}>
-          {error ? labelError : label}
+          {error && rest.required ? labelError : label}
       </label>
       <input {...rest} />
     </div>

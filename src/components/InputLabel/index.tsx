@@ -14,7 +14,7 @@ const InputLabel: React.FC<InputLabelProps> = ({ name, label, labelError, error,
     ? 'input-label-block has-button-right' 
     : 'input-label-block'
   ;
-  const classNameLabel = error ? 'error' : '';
+  const classNameLabel = error && required ? 'error' : '';
 
   useEffect(() => {
     if (value && value.toString()) {
@@ -33,7 +33,7 @@ const InputLabel: React.FC<InputLabelProps> = ({ name, label, labelError, error,
         aria-required={required}
       />
       <label className={classNameLabel} htmlFor={name}>
-        {error ? labelError : label}
+        {error && required ? labelError : label}
       </label>
       { buttonRight && (
         <div className="button-right">
