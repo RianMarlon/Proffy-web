@@ -56,6 +56,10 @@
   line-height: 2rem;
 }
 
+.input-label-block label.error {
+  color: var(--color-text-error)
+}
+
 .input-label-block input:focus + label, 
 .input-label-block input.focus + label {
   display: inline-block;
