@@ -14,8 +14,8 @@ function Routes() {
       <TeachersProvider>
         <Route path="/" exact component={Login} />
         <Route path="/cadastre" component={Cadastre} />
-        <Route path="/home" component={Landing} />
         <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/home" component={Landing} />
         <Route path="/study" component={TeacherList} />
         <Route path="/give-classes" component={TeacherForm} />
       </TeachersProvider>
