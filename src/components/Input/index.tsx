@@ -9,16 +9,16 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean,
 }
 
-const Input: React.FC<InputProps> = ({ label, labelError, error, ...rest }) => {
-  const classNameLabel = error && rest.required ? 'error' : '';
+const Input: React.FC<InputProps> = ({ label, labelError, error, required, ...rest }) => {
+  const classNameLabel = error && required ? 'error' : '';
 
   return (
     <div className="input-block">
       <label className={classNameLabel} 
         htmlFor={rest.name}>
-          {error && rest.required ? labelError : label}
+          {error && required ? labelError : label}
       </label>
-      <input {...rest} />
+      <input id={rest.name} {...rest} aria-required={required} />
     </div>
   );
 }
