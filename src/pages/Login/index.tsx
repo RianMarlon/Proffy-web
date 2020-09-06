@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 
 import Proffy from '../../components/Proffy';
 import InputLabel from '../../components/InputLabel';
@@ -8,25 +8,47 @@ import { Link } from 'react-router-dom';
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg';
 
 import './styles.css';
+import useForm from '../../hooks/useForm';
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [remeberMe, setRememberMe] = useState(false);
+
+  const initialFields = {
+    email: "",
+    password: ""
+  }
+
+  const [ form, errors,
+    updateField, validateFields,
+    hasOneFieldEmpty, hasOneError
+  ] = useForm(initialFields);
+
+  const [rememberMe, setRememberMe] = useState(false);
   const [buttonSubmitDisabled, setButtonSubmitDisabled] = useState(true);
   const regexValidateEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
   useEffect(() => {
-    if (regexValidateEmail.test(email) && password.trim()) {
+    const hasValidEmail = regexValidateEmail.test(form.email);
+
+    if (hasValidEmail && !hasOneFieldEmpty()) {
       setButtonSubmitDisabled(false);
     }
 
     else {
       setButtonSubmitDisabled(true);
     }
-  
+
     // eslint-disable-next-line
-  }, [email, password])
+  }, [form]);
+
+  function handleSubmitLogin(e: FormEvent) {
+    e.preventDefault();
+
+    validateFields();
+
+    if (hasOneError()) {
+      return;
+    }
+  }
 
   return (
     <div className="login-container">
@@ -36,38 +58,44 @@ function Login() {
       <main className="login-content">
         <div>
           <h1>Fazer Login</h1>
-          <form>
+          <form onSubmit={handleSubmitLogin}>
             <InputLabel
               name="email"
               type="email"
               label="E-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              value={form.email}
+              onChange={updateField}
+              labelError="E-mail não informado"
+              error={errors.email}
+              required={true}
             />
+
             <InputPasword
               name="password"
               label="Senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
+              value={form.password}
+              onChange={updateField}   
+              labelError="Senha não informada"
+              error={errors.password}
+              required={true}
             />
 
             <div className="extras-block">
               <label className="checkbox-remember" htmlFor="remember-me">
-                <input type="checkbox" name="remember-me" id="remember-me"
-                  defaultChecked={remeberMe}
-                  onChange={() => setRememberMe(!!remeberMe)} />
+                <input type="checkbox" name="rememberMe" id="remember-me"
+                  defaultChecked={rememberMe}
+                  onChange={() => setRememberMe(!rememberMe)}
+                />
                 <span className="check-after" />
                 <span className="checkbox-label">Lembrar-me</span>
               </label>
 
-              <Link to="#">
+              <Link to="/forgot-password">
                 Esqueceu sua senha?
               </Link>
             </div>
 
-            <button className="button-submit"  type="submit"
+            <button className="button-submit" type="submit"
               disabled={buttonSubmitDisabled}>
               Entrar
             </button>
