@@ -10,6 +10,10 @@
   font-size: 1.4rem;
 }
 
+.textarea-block label.error {
+  color: var(--color-text-error)
+}
+
 .textarea-block label {
   color: var(--color-text-complement);
   font-size: 1.4rem;
