@@ -8,43 +8,57 @@ import InputPasword from '../../components/InputPassword';
 import backPurpleIcon from '../../assets/images/icons/back-purple.svg'
 
 import './styles.css';
+import useForm from '../../hooks/useForm';
 
 function Cadastre() {
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const initialFields = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  }
 
+  const [ form, errors,
+    updateField, validateFields,
+    hasOneFieldEmpty, hasOneError
+  ] = useForm(initialFields);
+
+  const [labelTextError, setLabelTextError] = useState("Senha não informada");
+  const [differentPasswords, setDifferentPasswords] = useState(false);
   const [buttonSubmitDisabled, setButtonSubmitDisabled] = useState(true);
   const regexValidateEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
   useEffect(() => {
-    const hasFirstName= firstName.trim();
-    const hasLastName = lastName.trim();
-    const hasValidEmail = regexValidateEmail.test(email);
-    const hasPassword = password.trim();
-    const hasConfirmPassword = confirmPassword.trim();
+    const hasValidEmail = regexValidateEmail.test(form.email);
 
-    if (hasFirstName && hasLastName && hasValidEmail && hasPassword && hasConfirmPassword) {
+    if (hasValidEmail && !hasOneFieldEmpty()) {
       setButtonSubmitDisabled(false);
     }
 
     else {
       setButtonSubmitDisabled(true);
     }
-    
-    // eslint-disable-next-line
-  }, [firstName, lastName, email, password]);
 
-  function handleCreateUser(e: FormEvent) {
+    // eslint-disable-next-line
+  }, [form]);
+
+  useEffect(() => {
+    setDifferentPasswords(false);
+  }, [form.confirmPassword])
+
+  function handleSubmitCadastre(e: FormEvent) {
     e.preventDefault();
 
-    const hasPassword = password.trim();
-    const hasConfirmPassword = confirmPassword.trim();
+    validateFields();
 
-    if (hasPassword && hasConfirmPassword && hasPassword !== hasConfirmPassword) {
+    if (form.password !== form.confirmPassword) {
+      setDifferentPasswords(true);
+      setLabelTextError("Senhas não conferem");
+    }
+
+    if (hasOneError() || differentPasswords) {
       return;
     }
   }
@@ -65,44 +79,54 @@ function Cadastre() {
             <div className="form-container">
               <h1>Cadastro</h1>
               <p>Preencha todos os dados abaixo para começar</p>
-              <form onChange={handleCreateUser}>
+              <form onSubmit={handleSubmitCadastre}>
                 <InputLabel
-                  name="first-name"
+                  name="firstName"
                   type="text"
                   label="Nome"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
+                  labelError="Nome não informado"
+                  error={errors.firstName}
+                  value={form.firstName}
+                  onChange={updateField}
+                  required={true}
                 />
                 <InputLabel
-                  name="last-name"
+                  name="lastName"
                   type="text"
                   label="Sobrenome"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
+                  labelError="Sobrenome não informado"
+                  error={errors.lastName}
+                  value={form.lastName}
+                  onChange={updateField}
+                  required={true}
                 />
                 <InputLabel
                   name="email"
                   type="email"
                   label="E-mail"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
+                  labelError="E-mail não informado"
+                  error={errors.email}
+                  value={form.email}
+                  onChange={updateField}
+                  required={true}
                 />
                 <InputPasword
                   name="password"
                   label="Senha"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
+                  labelError="Senha não informada"
+                  error={errors.password}
+                  value={form.password}
+                  onChange={updateField}
+                  required={true}
                 />
                 <InputPasword
-                  name="confirm-password"
+                  name="confirmPassword"
                   label="Confirme sua senha"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
+                  labelError={labelTextError}
+                  error={errors.confirmPassword || differentPasswords}
+                  value={form.confirmPassword}
+                  onChange={updateField}
+                  required={true}
                 />
 
                 <button className="button-submit" type="submit"
