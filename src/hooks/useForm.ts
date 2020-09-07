@@ -34,7 +34,7 @@ function useForm(initialState: any) {
   }
 
   function hasOneError() {
-    const hasError = (value: any) => !value;
+    const hasError = (value: any) => value;
     return Object.values(errors).some(hasError);
   }
 
