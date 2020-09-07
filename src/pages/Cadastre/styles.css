@@ -29,7 +29,8 @@
   flex-direction: column;
   justify-content: stretch;
   align-items: center;
-  max-width: 333px;
+  max-width: 33.5rem;
+  width: 100%;
 }
 
 .cadastre-content .header {
