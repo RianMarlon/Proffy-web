@@ -1,21 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 import Proffy from '../../components/Proffy';
 import InputLabel from '../../components/InputLabel';
 
-import backPurpleIcon from '../../assets/images/icons/back-purple.svg'
+import backPurpleIcon from '../../assets/images/icons/back-purple.svg';
 
 import './styles.css';
+import useForm from '../../hooks/useForm';
 
 function ForgotPassword() {
-  const [email, setEmail] = useState('');
+  const initialFields = {
+    email: ""
+  }
+  
+  const [ form, errors,
+    updateField, validateFields,
+    hasOneError
+  ] = useForm(initialFields);
 
   const [buttonSubmitDisabled, setButtonSubmitDisabled] = useState(true);
   const regexValidateEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
   useEffect(() => {
-    const hasValidEmail = regexValidateEmail.test(email);
+    const hasValidEmail = regexValidateEmail.test(form.email);
 
     if (hasValidEmail) {
       setButtonSubmitDisabled(false);
@@ -26,7 +34,17 @@ function ForgotPassword() {
     }
     
     // eslint-disable-next-line
-  }, [email]);
+  }, [form]);
+
+  function handleSubmitForgotPassword(e: FormEvent) {
+    e.preventDefault();
+
+    validateFields();
+
+    if (hasOneError()) {
+      return;
+    }
+  }
 
   return (
     <div className="forgot-password-container">
@@ -44,14 +62,16 @@ function ForgotPassword() {
             <div className="form-container">
               <h1>Eita, esqueceu sua senha?</h1>
               <p>Não esquenta, vamos dar um jeito.</p>
-              <form>
+              <form onSubmit={handleSubmitForgotPassword}>
                 <InputLabel
                   name="email"
                   type="email"
                   label="E-mail"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
+                  labelError="E-mail não informado"
+                  error={errors.email}
+                  value={form.email}
+                  onChange={updateField}
+                  required={true}
                 />
 
                 <button className="button-submit" type="submit"
