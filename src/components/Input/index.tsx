@@ -18,7 +18,7 @@ const Input: React.FC<InputProps> = ({ label, labelError, error, required, ...re
         htmlFor={rest.name}>
           {error && required ? labelError : label}
       </label>
-      <input id={rest.name} {...rest} aria-required={required} />
+      <input {...rest} id={rest.name} aria-required={required} />
     </div>
   );
 }

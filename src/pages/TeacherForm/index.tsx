@@ -1,5 +1,7 @@
 import React, { useState, FormEvent } from 'react';
-import { useHistory } from 'react-router-dom';
+
+import api from '../../services/api';
+import useForm from '../../hooks/useForm';
 
 import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
@@ -9,12 +11,23 @@ import Select from '../../components/Select';
 import warningIcon from '../../assets/images/icons/warning.svg';
 import rocketIcon from '../../assets/images/icons/rocket.svg';
 
-import api from '../../services/api';
-
 import './styles.css';
 
 function TeacherForm() {
-  const history = useHistory();
+
+  const initialFields = {
+    name: "",
+    avatar: "",
+    whatsapp: "",
+    biography: "",
+    subject: "",
+    cost: ""
+  }
+
+  const [ form, errors,
+    updateField, validateFields,
+    hasOneError
+  ] = useForm(initialFields);
 
   const initialStateScheduleItems = [
     { week_day: '', from: '', to: '' }
@@ -22,21 +35,13 @@ function TeacherForm() {
 
   const [scheduleItems, setScheduleItems] = useState([...initialStateScheduleItems]);
 
-  const [name, setName] = useState('');
-  const [avatar, setAvatar] = useState('');
-  const [whatsapp, setWhatsapp] = useState('');
-  const [biography, setBiography] = useState('');
-
-  const [subject, setSubjet] = useState('');
-  const [cost, setCost] = useState('');
-
   function addNewScheduleItem() {
     setScheduleItems([
       ...scheduleItems,
       ...initialStateScheduleItems
     ]);
   }
-
+  
   function setScheduleItemValue(position: number, field: string, value: string) {
     const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
       const isSamePosition = index === position;
@@ -49,27 +54,32 @@ function TeacherForm() {
         return scheduleItem;
       }
     });
-
+    
     setScheduleItems(updatedScheduleItems);
   }
-
-  function handleCreateClass(e: FormEvent) {
+  
+  function handleSubmitTeacherForm(e: FormEvent) {
     e.preventDefault();
 
+    validateFields();
+        
+    if (hasOneError()) {
+      return;
+    }
+
     const data = {
-      name,
-      avatar,
-      whatsapp,
-      biography,
-      subject,
-      cost: Number(cost),
+      name: form.name,
+      avatar: form.avatar,
+      whatsapp: form.whatsapp,
+      biography: form.biography,
+      subject: form.subject,
+      cost: Number(form.cost),
       schedules: scheduleItems
     }
     
     api.post('/classes', data)
       .then(() => {
         alert('Cadastro realizado com sucesso');
-        history.push('/');
       })
       .catch(() => {
         alert('Erro no cadastro');
@@ -91,34 +101,47 @@ function TeacherForm() {
       />
 
       <main>
-        <form onSubmit={handleCreateClass}>
+        <form onSubmit={handleSubmitTeacherForm}>
           <fieldset>
             <legend>Seus dados</legend>
             <Input 
-              name="name" 
-              value={name} 
-              onChange={(e) => setName(e.target.value)} 
-              label="Nome completo"
-              type="name"
+              name="name"
+              type="text"
+              label="Nome"
+              labelError="Nome não informado"
+              error={errors.name}
+              value={form.name}
+              onChange={updateField}
+              required={true}
             />
             <Input 
               name="avatar" 
-              value={avatar} 
-              onChange={(e) => setAvatar(e.target.value)} 
-              label="Avatar" 
               type="url" 
+              label="Avatar(URL)"
+              labelError="URL do avatar não informado"
+              error={errors.avatar}
+              value={form.avatar}
+              onChange={updateField}
+              required={true}
             />
             <Input 
               name="whatsapp" 
-              value={whatsapp} 
-              onChange={(e) => setWhatsapp(e.target.value)} 
-              label="WhatsApp" 
+              type="text"
+              label="Whatsapp"
+              labelError="Número do Whatsapp não informado"
+              error={errors.whatsapp}
+              value={form.whatsapp}
+              onChange={updateField}
+              required={true}
             />
             <Textarea 
-              name="biography" 
-              value={biography} 
-              onChange={(e) => setBiography(e.target.value)} 
+              name="biography"
               label="Biografia"
+              labelError="Biografia não informada"
+              error={errors.biography}
+              value={form.biography}
+              onChange={updateField}
+              required={true}
             />
           </fieldset>
 
@@ -126,8 +149,8 @@ function TeacherForm() {
             <legend>Sobre a aula</legend>
             <Select 
               name="subject"
-              value={subject}
-              onChange={(e) => setSubjet(e.target.value)}
+              value={form.subject}
+              onChange={updateField}
               label="Matéria"
               options={[
                 { value: 'Biologia', label: 'Biologia' },
@@ -149,10 +172,13 @@ function TeacherForm() {
             />
             <Input 
               name="cost"
-              value={cost}
-              onChange={(e) => setCost(e.target.value)}
-              label="Custo da sua hora por aula"
               type="text"
+              label="Custo da sua hora por aula"
+              labelError="Preço não informado"
+              error={errors.cost}
+              value={form.cost}
+              onChange={updateField}
+              required={true}
             />
           </fieldset>
 
@@ -187,6 +213,8 @@ function TeacherForm() {
                   <Input 
                     name="from"
                     value={scheduleItem.from}
+                    labelError=""
+                    error={false}
                     onChange={e => setScheduleItemValue(index, 'from', e.target.value)}
                     label="Das"
                     type="time" 
@@ -195,6 +223,8 @@ function TeacherForm() {
                   <Input
                     name="to"
                     value={scheduleItem.to}
+                    labelError=""
+                    error={false}
                     onChange={e => setScheduleItemValue(index, 'to', e.target.value)}
                     label="Até" 
                     type="time" 
@@ -216,7 +246,7 @@ function TeacherForm() {
           </footer>
         </form>
       </main>
-    </div>
+    </div> 
   );
 }
 

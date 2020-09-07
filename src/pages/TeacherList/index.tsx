@@ -75,6 +75,7 @@ function TeacherList() {
 
   async function handleSearchTeachers(e: FormEvent) {
     e.preventDefault();
+    
     const params = {
       subject: subject,
       week_day: weekDay,
