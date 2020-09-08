@@ -1,14 +1,15 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 
+import useForm from '../../hooks/useForm';
+
 import Proffy from '../../components/Proffy';
 import InputLabel from '../../components/InputLabel';
 import InputPasword from '../../components/InputPassword';
 
-import backPurpleIcon from '../../assets/images/icons/back-purple.svg'
+import backPurpleIcon from '../../assets/images/icons/back-purple.svg';
 
 import './styles.css';
-import useForm from '../../hooks/useForm';
 
 function Cadastre() {
 
@@ -22,7 +23,7 @@ function Cadastre() {
 
   const [ form, errors,
     updateField, validateFields,
-    hasOneFieldEmpty, hasOneError
+    hasOneFieldEmpty
   ] = useForm(initialFields);
 
   const [labelTextError, setLabelTextError] = useState("Senha não informada");
@@ -58,7 +59,7 @@ function Cadastre() {
       setLabelTextError("Senhas não conferem");
     }
 
-    if (hasOneError() || differentPasswords) {
+    if (hasOneFieldEmpty() || differentPasswords) {
       return;
     }
   }
