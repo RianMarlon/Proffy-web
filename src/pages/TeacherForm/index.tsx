@@ -25,7 +25,7 @@ function TeacherForm() {
 
   const [ form, errors,
     updateField, validateFields,
-    hasOneError
+    hasOneFieldEmpty
   ] = useForm(initialFields);
 
   const initialStateScheduleItems = [
@@ -62,7 +62,7 @@ function TeacherForm() {
 
     validateFields();
         
-    if (hasOneError()) {
+    if (hasOneFieldEmpty()) {
       return;
     }
 
