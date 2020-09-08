@@ -1,25 +1,27 @@
 import React, { useState, useEffect, FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 
-import Proffy from '../../components/Proffy';
+import useForm from '../../hooks/useForm';
+
 import InputLabel from '../../components/InputLabel';
 import InputPasword from '../../components/InputPassword';
-import { Link } from 'react-router-dom';
+import Proffy from '../../components/Proffy';
 
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg';
 
 import './styles.css';
-import useForm from '../../hooks/useForm';
 
 function Login() {
 
   const initialFields = {
-    email: "",
-    password: ""
+    email: '',
+    password: ''
   }
 
-  const [ form, errors,
+  const [
+    form, errors,
     updateField, validateFields,
-    hasOneFieldEmpty, hasOneError
+    hasOneFieldEmpty
   ] = useForm(initialFields);
 
   const [rememberMe, setRememberMe] = useState(false);
@@ -45,7 +47,7 @@ function Login() {
 
     validateFields();
 
-    if (hasOneError()) {
+    if (hasOneFieldEmpty()) {
       return;
     }
   }
