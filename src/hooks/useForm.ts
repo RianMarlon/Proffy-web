@@ -33,15 +33,10 @@ function useForm(initialState: any) {
     return Object.values(form).some(hasFieldEmpty);
   }
 
-  function hasOneError() {
-    const hasError = (value: any) => value;
-    return Object.values(errors).some(hasError);
-  }
-
   return [
     form, errors,
     updateField, validateFields,
-    hasOneFieldEmpty, hasOneError
+    hasOneFieldEmpty
   ]
 }
 
