@@ -16,12 +16,11 @@ import './styles.css';
 function TeacherForm() {
 
   const initialFields = {
-    name: "",
-    avatar: "",
-    whatsapp: "",
-    biography: "",
-    subject: "",
-    cost: ""
+    avatar: '',
+    whatsapp: '',
+    biography: '',
+    subject: '',
+    cost: ''
   }
 
   const [ form, errors,
@@ -68,7 +67,6 @@ function TeacherForm() {
     }
 
     const data = {
-      name: form.name,
       avatar: form.avatar,
       whatsapp: form.whatsapp,
       biography: form.biography,
@@ -104,16 +102,6 @@ function TeacherForm() {
         <form onSubmit={handleSubmitTeacherForm}>
           <fieldset>
             <legend>Seus dados</legend>
-            <Input 
-              name="name"
-              type="text"
-              label="Nome"
-              labelError="Nome não informado"
-              error={errors.name}
-              value={form.name}
-              onChange={updateField}
-              required={true}
-            />
             <Input 
               name="avatar" 
               type="url" 

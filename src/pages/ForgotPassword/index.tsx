@@ -1,17 +1,18 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 
+import useForm from '../../hooks/useForm';
+
 import Proffy from '../../components/Proffy';
 import InputLabel from '../../components/InputLabel';
 
 import backPurpleIcon from '../../assets/images/icons/back-purple.svg';
 
 import './styles.css';
-import useForm from '../../hooks/useForm';
 
 function ForgotPassword() {
   const initialFields = {
-    email: ""
+    email: ''
   }
   
   const [ form, errors,

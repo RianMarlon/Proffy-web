@@ -7,7 +7,7 @@ function useForm(initialState: any) {
   function updateField(e: ChangeEvent<HTMLInputElement>) {
     const newForm = {...form};
     const newErrors = { ...errors };
-
+    
     newForm[e.target.name] = e.target.value;
     newErrors[e.target.name] = false;
 
