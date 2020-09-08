@@ -15,9 +15,10 @@ function ForgotPassword() {
     email: ''
   }
   
-  const [ form, errors,
+  const [
+    form, errors,
     updateField, validateFields,
-    hasOneError
+    hasOneFieldEmpty
   ] = useForm(initialFields);
 
   const [buttonSubmitDisabled, setButtonSubmitDisabled] = useState(true);
@@ -42,7 +43,7 @@ function ForgotPassword() {
 
     validateFields();
 
-    if (hasOneError()) {
+    if (hasOneFieldEmpty()) {
       return;
     }
   }
