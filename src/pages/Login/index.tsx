@@ -1,7 +1,9 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import useForm from '../../hooks/useForm';
+import api from '../../services/api';
+import { TOKEN_KEY } from '../../services/auth';
 
 import InputLabel from '../../components/InputLabel';
 import InputPasword from '../../components/InputPassword';
@@ -12,6 +14,8 @@ import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg';
 import './styles.css';
 
 function Login() {
+
+  const history = useHistory();
 
   const initialFields = {
     email: '',
@@ -50,6 +54,29 @@ function Login() {
     if (hasOneFieldEmpty()) {
       return;
     }
+
+    const data = {
+      email: form.email,
+      password: form.password
+    }
+
+    api.post('/signin', data)
+      .then((response) => {
+        const { token } = response.data;
+
+        if (rememberMe) {
+          localStorage.setItem(TOKEN_KEY, token);
+        }
+
+        else {
+          sessionStorage.setItem(TOKEN_KEY, token);
+        }
+
+        history.push('/home');
+      })
+      .catch(() => {
+        alert('Não foi possível fazer login!');
+      });
   }
 
   return (
