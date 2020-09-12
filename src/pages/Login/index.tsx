@@ -105,7 +105,7 @@ function Login() {
           <div className="footer">
             <p>
               Não tem conta?
-              <Link to="/cadastre">Cadastre-se</Link>
+              <Link to="/register">Cadastre-se</Link>
             </p>
             <span>É de graça <img src={purpleHeartIcon} alt="" /></span>
           </div>

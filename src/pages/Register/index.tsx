@@ -11,7 +11,7 @@ import backPurpleIcon from '../../assets/images/icons/back-purple.svg';
 
 import './styles.css';
 
-function Cadastre() {
+function Register() {
 
   const initialFields = {
     firstName: "",
@@ -143,4 +143,4 @@ function Cadastre() {
   );
 }
 
-export default Cadastre;
+export default Register;

@@ -5,7 +5,7 @@ import TeacherList from './pages/TeacherList';
 import TeacherForm from './pages/TeacherForm';
 import { TeachersProvider } from './contexts/TeachersContext';
 import Login from './pages/Login';
-import Cadastre from './pages/Cadastre';
+import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 
 function Routes() {
@@ -13,7 +13,7 @@ function Routes() {
     <BrowserRouter>
       <TeachersProvider>
         <Route path="/" exact component={Login} />
-        <Route path="/cadastre" component={Cadastre} />
+        <Route path="/register" component={Register} />
         <Route path="/forgot-password" component={ForgotPassword} />
         <Route path="/home" component={Landing} />
         <Route path="/study" component={TeacherList} />
