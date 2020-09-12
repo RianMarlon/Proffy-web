@@ -1,7 +1,8 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import useForm from '../../hooks/useForm';
+import api from '../../services/api';
 
 import Proffy from '../../components/Proffy';
 import InputLabel from '../../components/InputLabel';
@@ -13,20 +14,23 @@ import './styles.css';
 
 function Register() {
 
+  const history = useHistory();
+
   const initialFields = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: ""
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
   }
 
-  const [ form, errors,
+  const [
+    form, errors,
     updateField, validateFields,
     hasOneFieldEmpty
   ] = useForm(initialFields);
 
-  const [labelTextError, setLabelTextError] = useState("Senha não informada");
+  const [labelTextError, setLabelTextError] = useState('Senha não informada');
   const [differentPasswords, setDifferentPasswords] = useState(false);
   const [buttonSubmitDisabled, setButtonSubmitDisabled] = useState(true);
   const regexValidateEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -56,12 +60,29 @@ function Register() {
 
     if (form.password !== form.confirmPassword) {
       setDifferentPasswords(true);
-      setLabelTextError("Senhas não conferem");
+      setLabelTextError('Senhas não conferem');
     }
 
     if (hasOneFieldEmpty() || differentPasswords) {
       return;
     }
+
+    const data = {
+      first_name: form.firstName,
+      last_name: form.lastName,
+      email: form.email,
+      password: form.password,
+      confirm_password: form.confirmPassword
+    }
+
+    api.post('/signup', data)
+      .then(() => {
+        alert('Cadastro realizado com sucesso!');
+        history.push('/');
+      })
+      .catch(() => {
+        alert('Erro ao realizar o cadastro!');
+      });
   }
 
   return (
