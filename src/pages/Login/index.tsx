@@ -1,5 +1,6 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 import useForm from '../../hooks/useForm';
 import api from '../../services/api';
@@ -74,13 +75,17 @@ function Login() {
 
         history.push('/home');
       })
-      .catch(() => {
-        alert('Não foi possível fazer login!');
+      .catch(({ response }) => {
+        const messageError = response.data.error;
+        toast.error(messageError, {
+          autoClose: 3000
+        });
       });
   }
 
   return (
     <div className="login-container">
+      <ToastContainer />
       <header className="proffy-block-left">
         <Proffy />
       </header>
