@@ -24,6 +24,7 @@ function TeacherList() {
 
   const [showLoading, setShowLoading] = useState(false);
   const [scrollRadio, setScrollRadio] = useState(Number);
+  const [isFirstSearch, setIsFirstSearch] = useState(false);
 
   const scrollObservable = useRef<HTMLDivElement>(null);
   const intersectionObserver = new IntersectionObserver((entries) => {
@@ -32,7 +33,15 @@ function TeacherList() {
   });
 
   useEffect(() => {
-    loadTeachers();
+    (async () => {
+      try {
+        await loadTeachers();
+      }
+      finally {
+        setIsFirstSearch(true);
+      }
+    })();
+
     if (scrollObservable.current) {
       intersectionObserver.observe(scrollObservable.current);
     }
@@ -84,7 +93,13 @@ function TeacherList() {
       per_page: perPage,
     }
 
-    await getTeachers(params);
+    try {
+      await getTeachers(params);
+    }
+    finally {
+      setIsFirstSearch(true);
+    }
+
     setPage(2);
   }
 
@@ -156,9 +171,20 @@ function TeacherList() {
       </PageHeader>
 
       <main>
-          { teachers.length > 0 && teachers.map((teacher: Teacher) => {
-              return <TeacherItem key={teacher.id} teacher={teacher} />
-          })}
+          { teachers.length > 0 ? (
+              teachers.map((teacher: Teacher) => {
+                return <TeacherItem key={teacher.id} teacher={teacher} />
+              })
+            ) : (
+              isFirstSearch && (
+                <div className="no-results">
+                  <p>
+                    Nenhum professor encontrado.
+                  </p>
+                </div>
+              )
+            )
+          }
 
           <div ref={scrollObservable}></div>
 
