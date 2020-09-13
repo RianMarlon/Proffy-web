@@ -53,7 +53,7 @@ function Register() {
 
   useEffect(() => {
     setDifferentPasswords(false);
-  }, [form.confirmPassword])
+  }, [form.confirmPassword]);
 
   function handleSubmitCadastre(e: FormEvent) {
     e.preventDefault();
