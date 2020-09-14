@@ -1,19 +1,19 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
-import api from '../../services/api';
 import useForm from '../../hooks/useForm';
+import api from '../../services/api';
 
 import Proffy from '../../components/Proffy';
 import InputLabel from '../../components/InputLabel';
+import Success from '../../components/Success';
 
 import backPurpleIcon from '../../assets/images/icons/back-purple.svg';
 
 import './styles.css';
 
 function ForgotPassword() {
-  const history = useHistory();
-
   const initialFields = {
     email: ''
   }
@@ -58,53 +58,69 @@ function ForgotPassword() {
 
     api.post('/forgot-password', data)
       .then(() => {
-        alert('E-mail para alteração de senha enviado!');
-        history.push("/");
+        setIsSuccess(true);
       })
-      .catch(() => {
-        alert('Ocorreu um erro!');
-        history.push("/");
+      .catch(({ response }) => {
+        const messageError = response.data.error;
+        toast.error(messageError, {
+          autoClose: 3000
+        });
       });
   }
 
   return (
-    <div className="forgot-password-container">
-      <header className="proffy-block-right">
-        <Proffy />
-      </header>
-      <main className="forgot-password-content">
-        <div>
-          <div className="header">
-            <Link to="/">
-              <img src={backPurpleIcon} alt="Voltar"/>
-            </Link>
-          </div>
-          <div className="body">
-            <div className="form-container">
-              <h1>Eita, esqueceu sua senha?</h1>
-              <p>Não esquenta, vamos dar um jeito.</p>
-              <form onSubmit={handleSubmitForgotPassword}>
-                <InputLabel
-                  name="email"
-                  type="email"
-                  label="E-mail"
-                  labelError="E-mail não informado"
-                  error={errors.email}
-                  value={form.email}
-                  onChange={updateField}
-                  required={true}
-                />
+    <>
+      {
+        !isSuccess ? (
+          <div className="forgot-password-container">
+            <ToastContainer />
+            <header className="proffy-block-right">
+              <Proffy />
+            </header>
+            <main className="forgot-password-content">
+              <div>
+                <div className="header">
+                  <Link to="/">
+                    <img src={backPurpleIcon} alt="Voltar"/>
+                  </Link>
+                </div>
+                <div className="body">
+                  <div className="form-container">
+                    <h1>Eita, esqueceu sua senha?</h1>
+                    <p>Não esquenta, vamos dar um jeito.</p>
+                    <form onSubmit={handleSubmitForgotPassword}>
+                      <InputLabel
+                        name="email"
+                        type="email"
+                        label="E-mail"
+                        labelError="E-mail não informado"
+                        error={errors.email}
+                        value={form.email}
+                        onChange={updateField}
+                        required={true}
+                      />
 
-                <button className="button-submit" type="submit"
-                  disabled={buttonSubmitDisabled}>
-                  Enviar
-                </button>
-              </form>
-            </div>
+                      <button className="button-submit" type="submit"
+                        disabled={buttonSubmitDisabled}>
+                        Enviar
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </main>
           </div>
-        </div>
-      </main>
-    </div>
+        ) : (
+          <Success 
+            title="Redefinição enviada!"
+            description="Boa, agora é só checar o e-mail que foi enviado para você
+            redefinir sua senha e aproveitar os estudos."
+            textButton="Voltar ao login"
+            routeButton="/"
+          />
+        )
+      }
+    </>
   );
 }
 
