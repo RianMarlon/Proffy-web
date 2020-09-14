@@ -69,6 +69,7 @@ function ChangePassword(props: any) {
 
   useEffect(() => {
     setDifferentPasswords(false);
+    
     // eslint-disable-next-line
   }, [form.confirmPassword])
 

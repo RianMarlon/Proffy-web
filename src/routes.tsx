@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import { hasToken, hasTokenValid } from './services/auth';
+import ChangePassword from './pages/ChangePassword';
 
 const PrivateRoute = ({component, ...rest}: any) => {
   const history = useHistory();
@@ -43,6 +44,7 @@ function Routes() {
             <PublicRoute path="/" exact component={Login} />
             <PublicRoute path="/register" component={Register} />
             <PublicRoute path="/forgot-password" component={ForgotPassword} />
+            <PublicRoute path="/change-password" component={ChangePassword} />
             <PrivateRoute path="/home" component={Landing} />
             <PrivateRoute path="/study" component={TeacherList} />
             <PrivateRoute path="/give-classes" component={TeacherForm} />
