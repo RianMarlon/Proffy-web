@@ -1,11 +1,13 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { useHistory } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 import api from '../../services/api';
 import useForm from '../../hooks/useForm';
 
 import Proffy from '../../components/Proffy';
 import InputPasword from '../../components/InputPassword';
+import Success from '../../components/Success';
 
 import './styles.css';
 
@@ -28,6 +30,8 @@ function ChangePassword(props: any) {
   const [differentPasswords, setDifferentPasswords] = useState(false);
   const [buttonSubmitDisabled, setButtonSubmitDisabled] = useState(true);
 
+  const [isSuccess, setIsSuccess] = useState(false);
+
   useEffect(() => {
     (async () => {
       const query = props.location.search;
@@ -48,7 +52,6 @@ function ChangePassword(props: any) {
         setToken(token);
       }
     })();
-
     // eslint-disable-next-line
   }, []);
 
@@ -66,7 +69,6 @@ function ChangePassword(props: any) {
 
   useEffect(() => {
     setDifferentPasswords(false);
-
     // eslint-disable-next-line
   }, [form.confirmPassword])
 
@@ -92,55 +94,72 @@ function ChangePassword(props: any) {
 
     api.post('/change-password', data)
       .then(() => {
-        alert('Senha alterada com sucesso!');
-        history.push('/');
+        setIsSuccess(true);
       })
-      .catch(() => {
-        alert('Ocorreu um erro');
+      .catch(({ response }) => {
+        const messageError = response.data.error;
+        toast.error(messageError, {
+          autoClose: 3000
+        });
       });
   }
 
   return (
-    <div className="change-password-container">
-      <header className="proffy-block-right">
-        <Proffy />
-      </header>
-      <main className="change-password-content">
-        <div>
-          <div className="body">
-            <div className="form-container">
-              <h1>Redefinir senha</h1>
-              <p>Você não se lembra da sua antiga senha? Informe uma nova.</p>
-              <form onSubmit={handleSubmitForgotPassword}>
-                <InputPasword
-                  name="password"
-                  label="Senha"
-                  labelError="Senha não informada"
-                  error={errors.password}
-                  value={form.password}
-                  onChange={updateField}
-                  required={true}
-                />
-                <InputPasword
-                  name="confirmPassword"
-                  label="Confirme sua senha"
-                  labelError={labelTextError}
-                  error={errors.confirmPassword || differentPasswords}
-                  value={form.confirmPassword}
-                  onChange={updateField}
-                  required={true}
-                />
+    <>
+      {
+        !isSuccess ? (
+          <div className="change-password-container">
+            <ToastContainer />
+            <header className="proffy-block-right">
+              <Proffy />
+            </header>
+            <main className="change-password-content">
+              <div>
+                <div className="body">
+                  <div className="form-container">
+                    <h1>Redefinir senha</h1>
+                    <p>Você não se lembra da sua antiga senha? Informe uma nova.</p>
+                    <form onSubmit={handleSubmitForgotPassword}>
+                      <InputPasword
+                        name="password"
+                        label="Senha"
+                        labelError="Senha não informada"
+                        error={errors.password}
+                        value={form.password}
+                        onChange={updateField}
+                        required={true}
+                      />
+                      <InputPasword
+                        name="confirmPassword"
+                        label="Confirme sua senha"
+                        labelError={labelTextError}
+                        error={errors.confirmPassword || differentPasswords}
+                        value={form.confirmPassword}
+                        onChange={updateField}
+                        required={true}
+                      />
 
-                <button className="button-submit" type="submit"
-                  disabled={buttonSubmitDisabled}>
-                  Enviar
-                </button>
-              </form>
-            </div>
+                      <button className="button-submit" type="submit"
+                        disabled={buttonSubmitDisabled}>
+                        Enviar
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </main>
           </div>
-        </div>
-      </main>
-    </div>
+        ) : (
+          <Success 
+            title="Senha alterada com sucesso!"
+            description="Boa, agora você pode fazer login com a sua nova senha e aproveitar
+            os estudos."
+            textButton="Fazer login"
+            routeButton="/"
+          />
+        )
+      }
+    </>
   );
 }
 
