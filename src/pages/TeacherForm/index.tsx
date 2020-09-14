@@ -41,6 +41,15 @@ function TeacherForm() {
     ]);
   }
   
+  function removeScheduleItem(index: number) {
+    const hasDifferentIndex = (scheduleItem: any, indexSchedule: number) => indexSchedule !== index; 
+    const newScheduleItems = scheduleItems.filter(hasDifferentIndex);
+
+    setScheduleItems([
+      ...newScheduleItems
+    ]);
+  }
+  
   function setScheduleItemValue(position: number, field: string, value: string) {
     const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
       const isSamePosition = index === position;
@@ -180,43 +189,60 @@ function TeacherForm() {
 
             {scheduleItems.map((scheduleItem, index) => {
               return (
-                <div key={index} className="schedule-item">
-                  <Select 
-                    name="week_day"
-                    value={scheduleItem.week_day}
-                    onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
-                    label="Dia da semana"
-                    options={[
-                      { value: '0', label: 'Domingo' },
-                      { value: '1', label: 'Segunda-feira' },
-                      { value: '2', label: 'Terça-feira' },
-                      { value: '3', label: 'Quarta-feira' },
-                      { value: '4', label: 'Quinta-feira' },
-                      { value: '5', label: 'Sexta-feira' },
-                      { value: '6', label: 'Sábado' }
-                    ]}
-                    sort
-                  />
+                <div key={index} className="schedule-item-container">
+                  <div className="schedule-item">
+                    <Select 
+                      name="week_day"
+                      value={scheduleItem.week_day}
+                      onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
+                      label="Dia da semana"
+                      options={[
+                        { value: '0', label: 'Domingo' },
+                        { value: '1', label: 'Segunda-feira' },
+                        { value: '2', label: 'Terça-feira' },
+                        { value: '3', label: 'Quarta-feira' },
+                        { value: '4', label: 'Quinta-feira' },
+                        { value: '5', label: 'Sexta-feira' },
+                        { value: '6', label: 'Sábado' }
+                      ]}
+                      sort
+                    />
 
-                  <Input 
-                    name="from"
-                    value={scheduleItem.from}
-                    labelError=""
-                    error={false}
-                    onChange={e => setScheduleItemValue(index, 'from', e.target.value)}
-                    label="Das"
-                    type="time" 
-                  />
+                    <Input 
+                      name="from"
+                      value={scheduleItem.from}
+                      labelError=""
+                      error={false}
+                      onChange={e => setScheduleItemValue(index, 'from', e.target.value)}
+                      label="Das"
+                      type="time" 
+                    />
 
-                  <Input
-                    name="to"
-                    value={scheduleItem.to}
-                    labelError=""
-                    error={false}
-                    onChange={e => setScheduleItemValue(index, 'to', e.target.value)}
-                    label="Até" 
-                    type="time" 
-                  />
+                    <Input
+                      name="to"
+                      value={scheduleItem.to}
+                      labelError=""
+                      error={false}
+                      onChange={e => setScheduleItemValue(index, 'to', e.target.value)}
+                      label="Até" 
+                      type="time" 
+                    />
+                  </div>
+                  { scheduleItems.length > 1 && (
+                    <div className="remove-schedule-item">
+                      <div className="row">
+                        <div></div>
+                      </div>
+                      <div className="button-remove-block">
+                        <button type="button" onClick={() => removeScheduleItem(index)}>
+                          Excluir horário
+                        </button>
+                      </div>
+                      <div className="row">
+                        <div></div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
