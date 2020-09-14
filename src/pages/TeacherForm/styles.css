@@ -81,8 +81,50 @@
   margin-top: 2.4rem;
 }
 
-#page-teacher-form main .schedule-item + .schedule-item {
-  margin-top: 4.5rem;
+#page-teacher-form main .schedule-item-container + .schedule-item-container {
+  margin-top: 5rem;
+}
+
+#page-teacher-form main  .remove-schedule-item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+#page-teacher-form main .remove-schedule-item .row {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#page-teacher-form main .remove-schedule-item .row div {
+  min-width: 100%;
+  height: 1px;
+  background-color: var(--color-line-in-white);
+}
+
+#page-teacher-form main .remove-schedule-item .button-remove-block {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  min-width: 150px;
+}
+
+#page-teacher-form main .remove-schedule-item .button-remove-block button {
+  font-family: 'Archivo';
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: var(--color-text-delete);
 }
 
 #page-teacher-form main footer {
