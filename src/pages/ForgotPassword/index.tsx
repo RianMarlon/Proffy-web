@@ -1,6 +1,7 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
+import api from '../../services/api';
 import useForm from '../../hooks/useForm';
 
 import Proffy from '../../components/Proffy';
@@ -11,6 +12,8 @@ import backPurpleIcon from '../../assets/images/icons/back-purple.svg';
 import './styles.css';
 
 function ForgotPassword() {
+  const history = useHistory();
+
   const initialFields = {
     email: ''
   }
@@ -23,6 +26,8 @@ function ForgotPassword() {
 
   const [buttonSubmitDisabled, setButtonSubmitDisabled] = useState(true);
   const regexValidateEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     const hasValidEmail = regexValidateEmail.test(form.email);
@@ -46,6 +51,20 @@ function ForgotPassword() {
     if (hasOneFieldEmpty()) {
       return;
     }
+
+    const data = {
+      email: form.email
+    };
+
+    api.post('/forgot-password', data)
+      .then(() => {
+        alert('E-mail para alteração de senha enviado!');
+        history.push("/");
+      })
+      .catch(() => {
+        alert('Ocorreu um erro!');
+        history.push("/");
+      });
   }
 
   return (
