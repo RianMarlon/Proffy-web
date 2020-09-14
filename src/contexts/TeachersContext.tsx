@@ -13,6 +13,7 @@ export interface Teacher {
   id: number,
   avatar: string,
   name: string,
+  email: string,
   subject: string,
   biography: string,
   cost: number,
