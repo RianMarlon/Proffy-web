@@ -1,9 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { Link } from 'react-router-dom';
-
-import logoImg from '../../assets/images/logo.svg';
-import backIcon from '../../assets/images/icons/back.svg';
+import Navbar from '../Navbar';
 
 import './styles.css';
 
@@ -17,13 +14,9 @@ interface PageHeaderProps {
 const PageHeader: React.FC<PageHeaderProps> = (props) => {
   return(
     <header className="page-header">
-      <div className="top-bar-container">
-        <Link to="/home">
-          <img src={backIcon} alt="Voltar"/>
-        </Link>
-        <p>{ props.namePage }</p>
-        <img src={logoImg} alt="Proffy"/>
-      </div>
+      <Navbar 
+        namePage={props.namePage}
+      />
 
       <div className="header-content">
         <div className="title">
