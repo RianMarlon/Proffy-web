@@ -1,3 +1,4 @@
+
 import React, { useState, createContext } from 'react';
 
 import api from '../services/api';
@@ -12,11 +13,12 @@ export interface Schedule {
 export interface Teacher {
   id: number,
   avatar: string,
-  name: string,
+  first_name: string,
+  last_name: string,
   email: string,
   subject: string,
   biography: string,
-  cost: number,
+  cost: string,
   whatsapp: string,
   schedules: [Schedule],
   favorited?: boolean,
