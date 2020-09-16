@@ -10,6 +10,13 @@
   font-size: 1.4rem;
 }
 
+.textarea-block label .note {  
+  font-family: 'Poppins';
+  font-size: 1.25rem;
+  line-height: 2rem;
+  color: var(--color-text-input);
+}
+
 .textarea-block label.error {
   color: var(--color-text-error)
 }
