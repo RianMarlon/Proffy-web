@@ -6,9 +6,10 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string,
   labelError?: string,
   error?: boolean
+  note?: string,
 }
 
-const Textarea: React.FC<TextareaProps> = ({ label, labelError, error, required, ...rest }) => {
+const Textarea: React.FC<TextareaProps> = ({ label, note, labelError, error, required, ...rest }) => {
   const classNameLabel = error && required ? 'error' : '';
 
   return (
@@ -16,6 +17,10 @@ const Textarea: React.FC<TextareaProps> = ({ label, labelError, error, required,
       <label className={classNameLabel} 
         htmlFor={rest.name}>
           {error && required ? labelError : label}
+          {'  '}
+          <span className="note">
+            { !error && note && `(${note})` }
+          </span>
       </label>
       <textarea id={rest.name} {...rest} aria-required={required} />
     </div>
