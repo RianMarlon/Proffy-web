@@ -1,4 +1,5 @@
 import React from 'react';
+import Gravatar from 'react-gravatar';
 
 import api from '../../services/api';
 import { Schedule, Teacher } from '../../contexts/TeachersContext';
@@ -12,6 +13,8 @@ interface TeacherItemProps {
 }
 
 const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+  const cost = parseFloat(teacher.cost);
+
   function createNewConnection() {
     const data = { id_user: teacher.id };
     api.post('/connections', data);
@@ -20,12 +23,20 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
   return (
     <article className="teacher-item">
       <header>
-        <img 
-          src={teacher.avatar}
-          alt={teacher.name}
-        />
+        {
+          teacher.avatar ? (
+            <img
+              src={teacher.avatar}
+              alt="Avatar"
+            />
+          ) : (
+            <Gravatar
+              email={teacher.email}
+            />
+          )
+        }
         <div>
-          <strong>{teacher.name}</strong>
+          <strong>{`${teacher.first_name} ${teacher.last_name}`}</strong>
           <span>{teacher.subject}</span>
         </div>
       </header>
@@ -62,7 +73,9 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
       <footer>
         <p>
           Preço/Hora
-          <strong>R${teacher.cost}</strong>
+          <strong>
+            {cost.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}
+          </strong>
         </p>
         <a 
           onClick={createNewConnection}
