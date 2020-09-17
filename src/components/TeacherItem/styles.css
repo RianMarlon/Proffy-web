@@ -14,8 +14,9 @@
 }
 
 .teacher-item header img {
-  width: 8rem;
-  height: 8rem;
+  width: 7rem;
+  min-width: 7rem;
+  height: 7rem;
   border-radius: 50%;
 }
 
@@ -128,6 +129,11 @@
     padding: 3.2rem;
     display: flex;
     align-items: center;
+  }
+
+  .teacher-item header img {
+    width: 8rem;
+    height: 8rem;
   }
 
   .teacher-item > p {
