@@ -5,12 +5,17 @@ import './styles.css';
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string,
   label: string,
+  textLeftInput?: string,
   labelError?: string,
   error?: boolean,
 }
 
-const Input: React.FC<InputProps> = ({ label, labelError, error, required, ...rest }) => {
+const Input: React.FC<InputProps> = ({ label, textLeftInput, labelError, error, required, ...rest }) => {
   const classNameLabel = error && required ? 'error' : '';
+  const classNameInput = textLeftInput 
+    ? 'input text-left' 
+    : 'input'
+  ;
 
   return (
     <div className="input-block">
@@ -18,7 +23,14 @@ const Input: React.FC<InputProps> = ({ label, labelError, error, required, ...re
         htmlFor={rest.name}>
           {error && required ? labelError : label}
       </label>
-      <input {...rest} id={rest.name} aria-required={required} />
+      <div className={classNameInput}>
+        <input {...rest} id={rest.name} aria-required={required} />
+        {
+          textLeftInput && (
+            <span>{ textLeftInput }</span>
+          )
+        }
+      </div>
     </div>
   );
 }
