@@ -5,7 +5,7 @@ import './styles.css';
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string,
   labelError?: string,
-  error?: boolean
+  error?: boolean,
   note?: string,
 }
 
