@@ -11,6 +11,13 @@
   font-size: 1.4rem;
 }
 
+.input-block label .note {  
+  font-family: 'Poppins';
+  font-size: 1.25rem;
+  line-height: 2rem;
+  color: var(--color-text-input);
+}
+
 .input-block label.error {
   color: var(--color-text-error);
 }
@@ -24,6 +31,7 @@
   border: 1px solid var(--color-line-in-white);
   outline: 0;
   background-color: var(--color-input-background);
+  color: var(--color-text-base);
   font-family: 'Archivo';
   font-size: 1.6rem;
 }
@@ -38,3 +46,30 @@
   right: 1.6rem;
   bottom: 0;
 }
+
+.input-block .text-left {
+  position: relative;
+  min-height: 100%;
+}
+
+.input-block .text-left input {
+  padding-left: 4.5rem;
+}
+
+.input-block .text-left > span {
+  position: absolute; 
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding-left: 1.6rem;
+  height: 7.25rem;
+  width: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins';
+  font-size: 1.6rem;
+  line-height: 2.75rem;
+  color: var(--color-text-base);
+}
+
