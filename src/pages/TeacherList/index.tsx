@@ -1,4 +1,5 @@
 import React, { useState, useEffect, FormEvent, useContext, useRef } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 import PageHeader from '../../components/PageHeader';
 import TeacherItem from '../../components/TeacherItem';
@@ -105,6 +106,7 @@ function TeacherList() {
 
   return (
     <div id="page-teacher-list" className="container">
+      <ToastContainer />
       <PageHeader 
         namePage="Estudar" 
         title="Estes são os proffys disponíveis"

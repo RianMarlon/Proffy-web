@@ -1,5 +1,6 @@
 import React from 'react';
 import Gravatar from 'react-gravatar';
+import { toast } from 'react-toastify';
 
 import api from '../../services/api';
 import { Schedule, Teacher } from '../../contexts/TeachersContext';
@@ -16,8 +17,14 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
   const cost = parseFloat(teacher.cost);
 
   function createNewConnection() {
-    const data = { id_user: teacher.id };
-    api.post('/connections', data);
+    const data = { id_teacher: teacher.id };
+    api.post('/connections', data)
+      .catch(({ response }) => {
+        const messageError = response.data.error;
+        toast.error(messageError, {
+          autoClose: 3000
+        });
+      });
   }
 
   return (
@@ -79,7 +86,8 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
         </p>
         <a 
           onClick={createNewConnection}
-          type="button" href={`https://wa.me/${teacher.whatsapp}`} 
+          type="button" 
+          href={`https://wa.me/${teacher.whatsapp}`} 
           target="__blank"
         >
           <img src={whatsappIcon} alt="WhatsApp"/>
