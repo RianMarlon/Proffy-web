@@ -1,19 +1,29 @@
 #page-landing {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
 
   padding: 4rem 3rem;
 
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   color: var(--color-text-in-primary);
   background-color: var(--color-primary);
 }
 
+#page-landing header {
+  width: 100%;
+  max-width: 80%;
+  justify-self: center;
+  align-self: center;
+  margin-bottom: 6rem;
+}
+
 #page-landing-content {
   width: 100%;
+  max-width: 80%;
   height: 100%;
 }
 
@@ -104,6 +114,12 @@
 }
 
 @media (min-width: 1100px) {
+
+  #page-landing header {
+    max-width: 1300px;
+    padding: 0rem 5rem;
+  }
+
   #page-landing-content {
     max-width: 1300px;
     padding: 0rem 5rem;
