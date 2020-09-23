@@ -17,7 +17,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
   const cost = parseFloat(teacher.cost);
 
   function createNewConnection() {
-    const data = { id_teacher: teacher.id };
+    const data = { id_class: teacher.id_class };
     api.post('/connections', data)
       .catch(({ response }) => {
         const messageError = response.data.error;
@@ -51,7 +51,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
       <p>
         {teacher.biography.split('\n').map((elem: string, index: number) => {
           return (
-            <React.Fragment key={`${teacher.id}-${index}`}>
+            <React.Fragment key={`${teacher.id_class}-${index}`}>
               {index > 0 && <br />}
               { elem }
             </React.Fragment>
@@ -62,7 +62,7 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
       <div className="schedules">
         { teacher.schedules.map((schedule: Schedule) => {
           return (
-            <div key={schedule.id} className="schedule">
+            <div key={schedule.id_class_schedule} className="schedule">
               <div className="day">
                 <p className="label">Dia</p>
                 <p className="value">{ schedule.week_day }</p>
