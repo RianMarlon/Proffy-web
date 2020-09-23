@@ -57,6 +57,45 @@
   padding-bottom: 1.6rem;
 }
 
+#page-teacher-form main .photo-whatsapp-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#page-teacher-form main .photo-whatsapp-block .photo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#page-teacher-form main .photo-whatsapp-block .input-block {
+  width: 50%;
+  min-width: 200px;
+}
+
+#page-teacher-form main .photo-whatsapp-block > div {
+  margin-bottom: 2.4rem;
+}
+
+#page-teacher-form main .photo-whatsapp-block .photo img {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+}
+
+#page-teacher-form main .photo-whatsapp-block .photo p {
+  margin-left: 2rem;
+  font-family: 'Archivo';
+  font-weight: bold;
+  font-size: 2.25rem;
+  line-height: 2.75rem;
+  color: var(--color-text-title);
+}
+
 #page-teacher-form main fieldset button {
   background: none;
   border: none;
@@ -85,13 +124,17 @@
   margin-top: 5rem;
 }
 
-#page-teacher-form main  .remove-schedule-item {
+#page-teacher-form main fieldset .schedule-item > .input-block {
+  margin-top: 2.4rem;
+}
+
+#page-teacher-form main .remove-schedule-item {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 2.4rem;
 }
 
 #page-teacher-form main .remove-schedule-item .row {
@@ -194,15 +237,59 @@
   #page-teacher-form main fieldset {
     margin: 0 6.4rem;
   }
+  
+  #page-teacher-form main .photo-whatsapp-block {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #page-teacher-form main .photo-whatsapp-block .photo {
+    width: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  #page-teacher-form main .photo-whatsapp-block .input-block {
+    width: 40%;
+  }
+
+  #page-teacher-form main .photo-whatsapp-block > div {
+    margin-bottom: 2.4rem;
+  }
+
+  #page-teacher-form main .about-class {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  #page-teacher-form main .about-class .select-block + .input-block {
+    margin-top: 0;
+  }
+  
+  #page-teacher-form main .about-class .select-block {
+    width: 55%;
+  }
+  
+  #page-teacher-form main .about-class .input-block {
+    width: 35%;
+    min-width: 200px;
+  }
+
+  #page-teacher-form main .schedule-item-container + .schedule-item-container {
+    margin-top: 3.5rem;
+  }
 
   #page-teacher-form main .schedule-item {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     column-gap: 1.6rem;
-  }
-  
-  #page-teacher-form main .schedule-item + .schedule-item {
-    margin-top: 3rem;
   }
 
   #page-teacher-form main fieldset .schedule-item .input-block {
