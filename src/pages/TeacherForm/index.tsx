@@ -1,5 +1,5 @@
 import React, { useState, FormEvent, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import Gravatar from 'react-gravatar';
 
 import api from '../../services/api';
@@ -9,6 +9,7 @@ import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
 import Textarea from '../../components/Textarea';
 import Select from '../../components/Select';
+import Success from '../../components/Success';
 
 import warningIcon from '../../assets/images/icons/warning.svg';
 import rocketIcon from '../../assets/images/icons/rocket.svg';
@@ -16,8 +17,6 @@ import rocketIcon from '../../assets/images/icons/rocket.svg';
 import './styles.css';
 
 function TeacherForm() {
-
-  const history = useHistory();
 
   const initialFields = {
     whatsapp: '',
@@ -44,6 +43,8 @@ function TeacherForm() {
   });
 
   const [scheduleItems, setScheduleItems] = useState([...initialStateScheduleItems]);
+
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     api.get('/me')
@@ -104,201 +105,218 @@ function TeacherForm() {
     
     api.post('/classes', data)
       .then(() => {
-        alert('Aula cadastrada com sucesso!');
-        history.push('/home');
+        setIsSuccess(true);
       })
-      .catch(() => {
-        alert('Não foi possível fazer o cadastro!');
+      .catch(({ response }) => {
+        const messageError = response.data.error;
+        toast.error(messageError, {
+          autoClose: 3000
+        });
       });
   }
 
   return (
-    <div id="page-teacher-form" className="content">
-      <PageHeader
-        namePage="Dar aulas"
-        title="Que incrível que você quer dar aulas" 
-        description="O primeiro passo é preencher esse formulário de inscrição"
-        headerRight={(
-          <div className="header-right">
-            <img src={rocketIcon} alt="" />
-            <p>Prepare-se! Vai ser o máximo</p>
-          </div>
-        )}
-      />
-
-      <main>
-        <form onSubmit={handleSubmitTeacherForm}>
-          <fieldset>
-            <legend>Seus dados</legend>
-            <div className="photo-whatsapp-block">
-              <div className="photo">
-                {
-                  me.avatar ? (
-                    <img
-                      src={me.avatar}
-                      alt="Avatar"
-                    />
-                  ) : (
-                    <Gravatar
-                      email={me.email}
-                      alt="Avatar"
-                    />
-                  )
-                }
-                <p>
-                  { me.first_name }
-                </p>
-              </div>
-
-              <Input 
-                name="whatsapp" 
-                type="tel"
-                placeholder="Ex: 5585992820129"
-                pattern="[0-9]+$"
-                label="Whatsapp"
-                labelError="Whatsapp não informado"
-                error={errors.whatsapp}
-                value={form.whatsapp}
-                onChange={updateField}
-                required={true}
-              />
-            </div>
-            <Textarea 
-              name="biography"
-              label="Biografia"
-              note="Máximo de 500 caracteres"
-              labelError="Biografia não informada"
-              error={errors.biography}
-              value={form.biography}
-              onChange={updateField}
-              required={true}
-              maxLength={500}
+    <>
+      {
+        !isSuccess ? (
+          <div id="page-teacher-form" className="content">
+            <ToastContainer /> 
+            <PageHeader
+              namePage="Dar aulas"
+              title="Que incrível que você quer dar aulas" 
+              description="O primeiro passo é preencher esse formulário de inscrição"
+              headerRight={(
+                <div className="header-right">
+                  <img src={rocketIcon} alt="" />
+                  <p>Prepare-se! Vai ser o máximo</p>
+                </div>
+              )}
             />
-          </fieldset>
 
-          <fieldset>
-            <legend>Sobre a aula</legend>
-            <div className="about-class">
-              <Select 
-                name="subject"
-                value={form.subject}
-                onChange={updateField}
-                label="Matéria"
-                options={[
-                  { value: 'Biologia', label: 'Biologia' },
-                  { value: 'Matemática', label: 'Matemática' },
-                  { value: 'Física', label: 'Física' },
-                  { value: 'Química', label: 'Quimíca' },
-                  { value: 'Português', label: 'Português' },
-                  { value: 'Redação', label: 'Redação' },
-                  { value: 'História', label: 'História' },
-                  { value: 'Filosofia', label: 'Filosofia' },
-                  { value: 'Geografia', label: 'Geografia' },
-                  { value: 'Sociologia', label: 'Sociologia' },
-                  { value: 'Inglês', label: 'Inglês' },
-                  { value: 'Espanhol', label: 'Espanhol' },
-                  { value: 'Educação Física', label: 'Educação Física' },
-                  { value: 'Artes', label: 'Artes' }
-                ]}
-                sort
-              />
-              <Input 
-                name="cost"
-                type="text"
-                pattern="^[\d,.]+$"
-                textLeftInput="R$"
-                label="Custo da sua hora por aula"
-                labelError="Preço não informado"
-                error={errors.cost}
-                value={form.cost}
-                onChange={updateField}
-                required={true}
-              />
-            </div>
-          </fieldset>
+            <main>
+              <form onSubmit={handleSubmitTeacherForm}>
+                <fieldset>
+                  <legend>Seus dados</legend>
+                  <div className="photo-whatsapp-block">
+                    <div className="photo">
+                      {
+                        me.avatar ? (
+                          <img
+                            src={me.avatar}
+                            alt="Avatar"
+                          />
+                        ) : (
+                          <Gravatar
+                            email={me.email}
+                            alt="Avatar"
+                          />
+                        )
+                      }
+                      <p>
+                        { me.first_name }
+                      </p>
+                    </div>
 
-          <fieldset>
-            <legend>
-              Horários disponíveis
-              <button type="button" onClick={addNewScheduleItem}>
-                + Novo horário
-              </button>
-            </legend>
+                    <Input 
+                      name="whatsapp" 
+                      type="tel"
+                      placeholder="Ex: 5585992820129"
+                      pattern="[0-9]+$"
+                      label="Whatsapp"
+                      labelError="Whatsapp não informado"
+                      error={errors.whatsapp}
+                      value={form.whatsapp}
+                      onChange={updateField}
+                      required={true}
+                    />
+                  </div>
+                  <Textarea 
+                    name="biography"
+                    label="Biografia"
+                    note="Máximo de 500 caracteres"
+                    labelError="Biografia não informada"
+                    error={errors.biography}
+                    value={form.biography}
+                    onChange={updateField}
+                    required={true}
+                    maxLength={500}
+                  />
+                </fieldset>
 
-            {scheduleItems.map((scheduleItem, index) => {
-              return (
-                <div key={index} className="schedule-item-container">
-                  <div className="schedule-item">
+                <fieldset>
+                  <legend>Sobre a aula</legend>
+                  <div className="about-class">
                     <Select 
-                      name="week_day"
-                      value={scheduleItem.week_day}
-                      onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
-                      label="Dia da semana"
+                      name="subject"
+                      value={form.subject}
+                      onChange={updateField}
+                      label="Matéria"
                       options={[
-                        { value: '0', label: 'Domingo' },
-                        { value: '1', label: 'Segunda-feira' },
-                        { value: '2', label: 'Terça-feira' },
-                        { value: '3', label: 'Quarta-feira' },
-                        { value: '4', label: 'Quinta-feira' },
-                        { value: '5', label: 'Sexta-feira' },
-                        { value: '6', label: 'Sábado' }
+                        { value: 'Biologia', label: 'Biologia' },
+                        { value: 'Matemática', label: 'Matemática' },
+                        { value: 'Física', label: 'Física' },
+                        { value: 'Química', label: 'Quimíca' },
+                        { value: 'Português', label: 'Português' },
+                        { value: 'Redação', label: 'Redação' },
+                        { value: 'História', label: 'História' },
+                        { value: 'Filosofia', label: 'Filosofia' },
+                        { value: 'Geografia', label: 'Geografia' },
+                        { value: 'Sociologia', label: 'Sociologia' },
+                        { value: 'Inglês', label: 'Inglês' },
+                        { value: 'Espanhol', label: 'Espanhol' },
+                        { value: 'Educação Física', label: 'Educação Física' },
+                        { value: 'Artes', label: 'Artes' }
                       ]}
                       sort
                     />
-
                     <Input 
-                      name="from"
-                      value={scheduleItem.from}
-                      labelError=""
-                      error={false}
-                      onChange={e => setScheduleItemValue(index, 'from', e.target.value)}
-                      label="Das"
-                      type="time" 
-                    />
-
-                    <Input
-                      name="to"
-                      value={scheduleItem.to}
-                      labelError=""
-                      error={false}
-                      onChange={e => setScheduleItemValue(index, 'to', e.target.value)}
-                      label="Até" 
-                      type="time" 
+                      name="cost"
+                      type="text"
+                      pattern="^[\d,.]+$"
+                      textLeftInput="R$"
+                      label="Custo da sua hora por aula"
+                      labelError="Preço não informado"
+                      error={errors.cost}
+                      value={form.cost}
+                      onChange={updateField}
+                      required={true}
                     />
                   </div>
-                  { scheduleItems.length > 1 && (
-                    <div className="remove-schedule-item">
-                      <div className="row">
-                        <div></div>
-                      </div>
-                      <div className="button-remove-block">
-                        <button type="button" onClick={() => removeScheduleItem(index)}>
-                          Excluir horário
-                        </button>
-                      </div>
-                      <div className="row">
-                        <div></div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </fieldset>
+                </fieldset>
 
-          <footer>
-            <p>
-              <img src={warningIcon} alt="Aviso importante"/>
-              Importante! <br />
-              Prencha todos os dados
-            </p>
-            <button type="submit">
-              Salvar cadastro
-            </button>
-          </footer>
-        </form>
-      </main>
-    </div>
+                <fieldset>
+                  <legend>
+                    Horários disponíveis
+                    <button type="button" onClick={addNewScheduleItem}>
+                      + Novo horário
+                    </button>
+                  </legend>
+
+                  {scheduleItems.map((scheduleItem, index) => {
+                    return (
+                      <div key={index} className="schedule-item-container">
+                        <div className="schedule-item">
+                          <Select 
+                            name="week_day"
+                            value={scheduleItem.week_day}
+                            onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
+                            label="Dia da semana"
+                            options={[
+                              { value: '0', label: 'Domingo' },
+                              { value: '1', label: 'Segunda-feira' },
+                              { value: '2', label: 'Terça-feira' },
+                              { value: '3', label: 'Quarta-feira' },
+                              { value: '4', label: 'Quinta-feira' },
+                              { value: '5', label: 'Sexta-feira' },
+                              { value: '6', label: 'Sábado' }
+                            ]}
+                            sort
+                          />
+
+                          <Input 
+                            name="from"
+                            value={scheduleItem.from}
+                            labelError=""
+                            error={false}
+                            onChange={e => setScheduleItemValue(index, 'from', e.target.value)}
+                            label="Das"
+                            type="time" 
+                          />
+
+                          <Input
+                            name="to"
+                            value={scheduleItem.to}
+                            labelError=""
+                            error={false}
+                            onChange={e => setScheduleItemValue(index, 'to', e.target.value)}
+                            label="Até" 
+                            type="time" 
+                          />
+                        </div>
+                        { scheduleItems.length > 1 && (
+                          <div className="remove-schedule-item">
+                            <div className="row">
+                              <div></div>
+                            </div>
+                            <div className="button-remove-block">
+                              <button type="button" onClick={() => removeScheduleItem(index)}>
+                                Excluir horário
+                              </button>
+                            </div>
+                            <div className="row">
+                              <div></div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </fieldset>
+
+                <footer>
+                  <p>
+                    <img src={warningIcon} alt="Aviso importante"/>
+                    Importante! <br />
+                    Prencha todos os dados
+                  </p>
+                  <button type="submit">
+                    Salvar cadastro
+                  </button>
+                </footer>
+              </form>
+            </main>
+          </div> 
+        ) : (
+          <Success 
+            title="Cadastro salvo!"
+            description="Tudo certo, seu cadastro está na nossa lista de professores.
+            Agora é só ficar de olho no seu WhatsApp."
+            textButton="Voltar para a home"
+            routeButton="/"
+          />
+        )
+      }
+    </>
   );
 }
 
