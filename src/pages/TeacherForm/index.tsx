@@ -1,4 +1,6 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import Gravatar from 'react-gravatar';
 
 import api from '../../services/api';
 import useForm from '../../hooks/useForm';
@@ -15,15 +17,17 @@ import './styles.css';
 
 function TeacherForm() {
 
+  const history = useHistory();
+
   const initialFields = {
-    avatar: '',
     whatsapp: '',
     biography: '',
     subject: '',
-    cost: ''
+    cost: '',
   }
 
-  const [ form, errors,
+  const [
+    form, errors,
     updateField, validateFields,
     hasOneFieldEmpty
   ] = useForm(initialFields);
@@ -32,7 +36,22 @@ function TeacherForm() {
     { week_day: '', from: '', to: '' }
   ];
 
+  const [me, setMe] = useState({
+    first_name: '',
+    last_name: '',
+    avatar: '',
+    email: '',
+  });
+
   const [scheduleItems, setScheduleItems] = useState([...initialStateScheduleItems]);
+
+  useEffect(() => {
+    api.get('/me')
+      .then(response => {
+        const { user } = response.data;
+        setMe({ ...user });
+      });
+  }, []);
 
   function addNewScheduleItem() {
     setScheduleItems([
@@ -40,7 +59,7 @@ function TeacherForm() {
       ...initialStateScheduleItems
     ]);
   }
-  
+
   function removeScheduleItem(index: number) {
     const hasDifferentIndex = (scheduleItem: any, indexSchedule: number) => indexSchedule !== index; 
     const newScheduleItems = scheduleItems.filter(hasDifferentIndex);
@@ -76,20 +95,20 @@ function TeacherForm() {
     }
 
     const data = {
-      avatar: form.avatar,
       whatsapp: form.whatsapp,
       biography: form.biography,
       subject: form.subject,
-      cost: Number(form.cost),
+      cost: form.cost,
       schedules: scheduleItems
     }
     
     api.post('/classes', data)
       .then(() => {
-        alert('Cadastro realizado com sucesso');
+        alert('Aula cadastrada com sucesso!');
+        history.push('/home');
       })
       .catch(() => {
-        alert('Erro no cadastro');
+        alert('Não foi possível fazer o cadastro!');
       });
   }
 
@@ -111,72 +130,91 @@ function TeacherForm() {
         <form onSubmit={handleSubmitTeacherForm}>
           <fieldset>
             <legend>Seus dados</legend>
-            <Input 
-              name="avatar" 
-              type="url" 
-              label="Avatar(URL)"
-              labelError="URL do avatar não informado"
-              error={errors.avatar}
-              value={form.avatar}
-              onChange={updateField}
-              required={true}
-            />
-            <Input 
-              name="whatsapp" 
-              type="text"
-              label="Whatsapp"
-              labelError="Número do Whatsapp não informado"
-              error={errors.whatsapp}
-              value={form.whatsapp}
-              onChange={updateField}
-              required={true}
-            />
+            <div className="photo-whatsapp-block">
+              <div className="photo">
+                {
+                  me.avatar ? (
+                    <img
+                      src={me.avatar}
+                      alt="Avatar"
+                    />
+                  ) : (
+                    <Gravatar
+                      email={me.email}
+                      alt="Avatar"
+                    />
+                  )
+                }
+                <p>
+                  { me.first_name }
+                </p>
+              </div>
+
+              <Input 
+                name="whatsapp" 
+                type="tel"
+                placeholder="Ex: 5585992820129"
+                pattern="[0-9]+$"
+                label="Whatsapp"
+                labelError="Whatsapp não informado"
+                error={errors.whatsapp}
+                value={form.whatsapp}
+                onChange={updateField}
+                required={true}
+              />
+            </div>
             <Textarea 
               name="biography"
               label="Biografia"
+              note="Máximo de 500 caracteres"
               labelError="Biografia não informada"
               error={errors.biography}
               value={form.biography}
               onChange={updateField}
               required={true}
+              maxLength={500}
             />
           </fieldset>
 
           <fieldset>
             <legend>Sobre a aula</legend>
-            <Select 
-              name="subject"
-              value={form.subject}
-              onChange={updateField}
-              label="Matéria"
-              options={[
-                { value: 'Biologia', label: 'Biologia' },
-                { value: 'Matemática', label: 'Matemática' },
-                { value: 'Física', label: 'Física' },
-                { value: 'Química', label: 'Quimíca' },
-                { value: 'Português', label: 'Português' },
-                { value: 'Redação', label: 'Redação' },
-                { value: 'História', label: 'História' },
-                { value: 'Filosofia', label: 'Filosofia' },
-                { value: 'Geografia', label: 'Geografia' },
-                { value: 'Sociologia', label: 'Sociologia' },
-                { value: 'Inglês', label: 'Inglês' },
-                { value: 'Espanhol', label: 'Espanhol' },
-                { value: 'Educação Física', label: 'Educação Física' },
-                { value: 'Artes', label: 'Artes' }
-              ]}
-              sort
-            />
-            <Input 
-              name="cost"
-              type="text"
-              label="Custo da sua hora por aula"
-              labelError="Preço não informado"
-              error={errors.cost}
-              value={form.cost}
-              onChange={updateField}
-              required={true}
-            />
+            <div className="about-class">
+              <Select 
+                name="subject"
+                value={form.subject}
+                onChange={updateField}
+                label="Matéria"
+                options={[
+                  { value: 'Biologia', label: 'Biologia' },
+                  { value: 'Matemática', label: 'Matemática' },
+                  { value: 'Física', label: 'Física' },
+                  { value: 'Química', label: 'Quimíca' },
+                  { value: 'Português', label: 'Português' },
+                  { value: 'Redação', label: 'Redação' },
+                  { value: 'História', label: 'História' },
+                  { value: 'Filosofia', label: 'Filosofia' },
+                  { value: 'Geografia', label: 'Geografia' },
+                  { value: 'Sociologia', label: 'Sociologia' },
+                  { value: 'Inglês', label: 'Inglês' },
+                  { value: 'Espanhol', label: 'Espanhol' },
+                  { value: 'Educação Física', label: 'Educação Física' },
+                  { value: 'Artes', label: 'Artes' }
+                ]}
+                sort
+              />
+              <Input 
+                name="cost"
+                type="text"
+                pattern="^[\d,.]+$"
+                textLeftInput="R$"
+                label="Custo da sua hora por aula"
+                labelError="Preço não informado"
+                error={errors.cost}
+                value={form.cost}
+                onChange={updateField}
+                required={true}
+              />
+            </div>
           </fieldset>
 
           <fieldset>
@@ -260,7 +298,7 @@ function TeacherForm() {
           </footer>
         </form>
       </main>
-    </div> 
+    </div>
   );
 }
 
