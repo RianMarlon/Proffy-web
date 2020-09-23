@@ -3,14 +3,14 @@ import React, { useState, createContext } from 'react';
 import api from '../services/api';
 
 export interface Schedule {
-  id: number,
+  id_class_schedule: number,
   week_day: string,
   from: string,
   to: string,
 }
 
 export interface Teacher {
-  id: number,
+  id_class: number,
   avatar: string,
   first_name: string,
   last_name: string,
@@ -20,7 +20,6 @@ export interface Teacher {
   cost: string,
   whatsapp: string,
   schedules: [Schedule],
-  favorited?: boolean,
 }
 
 interface ParamsProps {

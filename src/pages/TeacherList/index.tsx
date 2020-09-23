@@ -1,12 +1,12 @@
 import React, { useState, useEffect, FormEvent, useContext, useRef } from 'react';
 import { ToastContainer } from 'react-toastify';
 
+import TeachersContext, { Teacher } from '../../contexts/TeachersContext';
+
 import PageHeader from '../../components/PageHeader';
 import TeacherItem from '../../components/TeacherItem';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
-
-import TeachersContext, { Teacher } from '../../contexts/TeachersContext';
 
 import loadingAnimated from '../../assets/images/loading.svg';
 import smileIcon from '../../assets/images/icons/smile.svg';
@@ -14,7 +14,10 @@ import smileIcon from '../../assets/images/icons/smile.svg';
 import './styles.css';
 
 function TeacherList() {
-  const { teachers, getTeachers, quantityTeachers, quantityClasses } = useContext(TeachersContext);
+  const {
+    teachers, getTeachers,
+    quantityTeachers, quantityClasses
+  } = useContext(TeachersContext);
 
   const [subject, setSubject] = useState('');
   const [weekDay, setWeekDay] = useState('');
@@ -55,7 +58,7 @@ function TeacherList() {
   }, []); 
 
   useEffect(() => {
-    if (scrollRadio > 0) {
+    if (isFirstSearch && scrollRadio > 0) {
       loadTeachers();
     }
 
@@ -175,7 +178,7 @@ function TeacherList() {
       <main>
           { teachers.length > 0 ? (
               teachers.map((teacher: Teacher) => {
-                return <TeacherItem key={teacher.id} teacher={teacher} />
+                return <TeacherItem key={teacher.id_class} teacher={teacher} />
               })
             ) : (
               isFirstSearch && (
