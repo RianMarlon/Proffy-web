@@ -71,7 +71,7 @@ function ChangePassword(props: any) {
     setDifferentPasswords(false);
     
     // eslint-disable-next-line
-  }, [form.confirmPassword])
+  }, [form.confirmPassword]);
 
   function handleSubmitForgotPassword(e: FormEvent) {
     e.preventDefault();
@@ -100,7 +100,7 @@ function ChangePassword(props: any) {
       .catch(({ response }) => {
         const messageError = response.data.error;
         toast.error(messageError, {
-          autoClose: 3000
+          autoClose: 5000
         });
       });
   }

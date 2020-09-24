@@ -110,7 +110,7 @@ function TeacherForm() {
       .catch(({ response }) => {
         const messageError = response.data.error;
         toast.error(messageError, {
-          autoClose: 3000
+          autoClose: 5000
         });
       });
   }
