@@ -1,0 +1,369 @@
+
+#my-profile-form {
+  width: 100vw;
+  height: 100vh;
+}
+
+#my-profile-form .page-header {
+  height: 70vh;
+  min-width: 90%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-primary);
+}
+
+#my-profile-form .page-header .header-content {
+  margin-top: 2rem;
+  margin-bottom: 6rem;
+  height: 100%;
+  min-width: 90%;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../../assets/images/success-background.svg');
+  position: relative;
+  background-size: contain;
+  background-position: center;
+}
+
+#my-profile-form .page-header .avatar {
+  height: 11rem;
+  width: 11rem;
+  position: relative;
+}
+
+#my-profile-form .page-header .avatar img {
+  height: 10.5rem;
+  width: 10.5rem;
+  border-radius: 50%;
+}
+
+#my-profile-form .page-header .avatar button {
+  height: 4.5rem;
+  width: 4.5rem;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+}
+
+#my-profile-form .page-header button label {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+}
+
+#my-profile-form .page-header .avatar button img {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+#my-profile-form .page-header .avatar button input {
+  display: none;
+}
+
+#my-profile-form .page-header .teacher-info {
+  margin-top: 2.5rem;
+  width: 80%;
+}
+
+#my-profile-form .page-header .teacher-info .name {
+  min-width: 100%;
+  font-family: 'Archivo';
+  font-weight: bold;
+  font-size: 2.75rem;
+  line-height: 2.75rem;
+  text-align: center;
+  color: var(--color-title-in-primary);
+}
+
+#my-profile-form .page-header .teacher-info .class {
+  margin-top: 1rem;
+  min-width: 100%;
+  font-family: 'Poppins';
+  font-size: 2rem;
+  line-height: 2.25rem;
+  text-align: center;
+  color: var(--color-text-in-primary);
+  text-align: center;
+}
+
+#my-profile-form main {
+  background-color: var(--color-box-base);
+  width: 100%;
+  max-width: 74rem;
+  border-radius: 0.8rem;
+  margin: -3.2rem auto 3.2rem;
+  padding-top: 6.4rem;
+  overflow: hidden;
+}
+
+#my-profile-form main fieldset {
+  border: 0;
+  padding: 0 2.4rem;
+}
+
+#my-profile-form main fieldset + fieldset {
+  margin-top: 6.4rem;
+}
+
+#my-profile-form main fieldset legend {
+  font-family: 'Archivo';
+  font-size: 2.4rem;
+  font-weight: 700;
+  border-bottom: 1px solid var(--color-line-in-white);
+  color: var(--color-text-title);
+  margin-bottom: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 1.6rem;
+}
+
+#my-profile-form main fieldset .input-block + .textarea-block,
+#my-profile-form main fieldset .select-block + .input-block {
+  margin-top: 2.4rem;
+}
+
+#my-profile-form main fieldset .name-block > div,
+#my-profile-form main fieldset .email-whatsapp-block > div {
+  margin-top: 0;
+  margin-bottom: 2.4rem;
+}
+
+#my-profile-form main fieldset button {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-family: 'Archivo';
+  font-size: 700;
+  font-weight: 300;
+  cursor: pointer;
+  transition: color 0.2s linear;
+}
+
+
+#my-profile-form main fieldset button:hover {
+  color: var(--color-primary-dark);
+}
+
+#my-profile-form main fieldset button:focus {
+  outline: 0;
+}
+
+#my-profile-form main .schedule-item-container + .schedule-item-container {
+  margin-top: 5rem;
+}
+
+#my-profile-form main fieldset .schedule-item > .input-block {
+  margin-top: 2.4rem;
+}
+
+#my-profile-form main .remove-schedule-item {
+  margin-top: 2.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#my-profile-form main .remove-schedule-item .row {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#my-profile-form main .remove-schedule-item .row div {
+  min-width: 100%;
+  height: 1px;
+  background-color: var(--color-line-in-white);
+}
+
+#my-profile-form main .remove-schedule-item .button-remove-block {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  width: 30%;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#my-profile-form main .remove-schedule-item .button-remove-block button {
+  font-family: 'Archivo';
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: var(--color-text-delete);
+}
+
+#my-profile-form main footer {
+  padding: 4rem 2.4rem;
+  background-color: var(--color-box-base);
+  border-top: 1px solid var(--color-line-in-white);
+  margin-top: 6.4rem;
+}
+
+#my-profile-form main footer p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  color: var(--color-text-complement);
+}
+
+#my-profile-form main footer p img {
+  margin-right: 2rem;
+}
+
+#my-profile-form main footer button {
+  width: 100%;
+  height: 5.6rem;
+  background-color: var(--color-secondary);
+  color: var(--color-button-text);
+  border: 0;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  font-family: 'Archivo';
+  font-size: 1.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background-color 0.2s linear;
+  margin-top: 3.2rem
+}
+
+#my-profile-form main footer button:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+#my-profile-form main footer button:focus {
+  outline: 0;
+}
+
+@media(min-width: 700px) {
+  #my-profile-form {
+    max-width: 100vw;
+  }
+  
+  #my-profile-form .page-header .avatar {
+    height: 12rem;
+    width: 12rem;
+  }
+  
+  #my-profile-form .page-header .avatar img {
+    height: 11.5rem;
+    width: 11.5rem;
+  }
+  
+  #my-profile-form .page-header .teacher-info .name {
+    font-size: 3.25rem;
+  }
+
+  #my-profile-form .page-header .teacher-info .class {
+    margin-top: 2rem;
+    font-size: 2.25rem;
+  }  
+
+  #my-profile-form main fieldset {
+    margin: 0 6.4rem;
+  }
+
+  #my-profile-form main .name-block {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  #my-profile-form main .name-block > div {
+    width: 47%;
+  }
+
+  #my-profile-form main .email-whatsapp-block {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  #my-profile-form main .email-whatsapp-block > div:nth-child(1) {
+    width: 57%;
+  }
+
+  #my-profile-form main .email-whatsapp-block > div:nth-child(2) {
+    width: 37%;
+  }
+
+  #my-profile-form main fieldset .select-block + .input-block {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  #my-profile-form main .about-class {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  #my-profile-form main .about-class .select-block {
+    width: 55%;
+  }
+  
+  #my-profile-form main .about-class .input-block {
+    width: 35%;
+    min-width: 200px;
+  }
+
+  #my-profile-form main .schedule-item-container + .schedule-item-container {
+    margin-top: 3.5rem;
+  }
+
+  #my-profile-form main .schedule-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    column-gap: 1.6rem;
+  }
+
+  #my-profile-form main fieldset .schedule-item > .input-block {
+    margin-top: 0;
+  }
+
+  #my-profile-form main footer {
+    padding: 4rem 6.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #my-profile-form main footer p {
+    justify-content: space-between;
+  }
+
+  #my-profile-form main footer button {
+    width: 20rem;
+    margin-top: 0;
+  }
+}
