@@ -5,6 +5,8 @@ import './styles.css';
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   name: string,
   label: string,
+  labelError?: string,
+  error?: boolean,
   options: Array<{
     value: string,
     label: string
@@ -17,7 +19,10 @@ interface OptionItem {
   label: string
 }
 
-const Select: React.FC<SelectProps> = ({ name, label, sort, options, ...rest }) => {
+const Select: React.FC<SelectProps> = ({ 
+    name, label, labelError, error, required, sort, options, ...rest 
+  }) => {
+  const classNameLabel = error && required ? 'error' : '';
 
   if (sort) {
     const functionComparation = (a: OptionItem, b: OptionItem) => {
@@ -39,7 +44,9 @@ const Select: React.FC<SelectProps> = ({ name, label, sort, options, ...rest }) 
   
   return (
     <div className="select-block">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name} className={classNameLabel}>
+        {error && required ? labelError : label}
+      </label>
       <select name={name} value="" {...rest} id={name}>
         <option value="" disabled hidden>Selecione uma opção</option>
 
