@@ -58,7 +58,8 @@ function Login() {
 
     const data = {
       email: form.email,
-      password: form.password
+      password: form.password,
+      remember_me: rememberMe
     }
 
     api.post('/signin', data)
@@ -76,7 +77,10 @@ function Login() {
         history.push('/home');
       })
       .catch(({ response }) => {
-        const messageError = response.data.error;
+        const data = response.data;
+        const messageError = data.error ? data.error 
+          : 'Ocorreu um erro inesperado!';
+          
         toast.error(messageError, {
           autoClose: 5000
         });

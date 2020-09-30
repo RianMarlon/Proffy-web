@@ -290,6 +290,8 @@ function Profile() {
                       name="subject"
                       value={me.subject}
                       label="Matéria"
+                      labelError="Matéria não informada"
+                      error={errors.subject}
                       options={[
                         { value: me.subject, label: me.subject},
                       ]}

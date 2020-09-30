@@ -98,7 +98,10 @@ function ChangePassword(props: any) {
         setIsSuccess(true);
       })
       .catch(({ response }) => {
-        const messageError = response.data.error;
+        const data = response.data;
+        const messageError = data.error ? data.error 
+          : 'Ocorreu um erro inesperado!';
+          
         toast.error(messageError, {
           autoClose: 5000
         });
