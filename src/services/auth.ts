@@ -29,12 +29,17 @@ export const hasTokenValid = async () => {
     const hasTokenInSessionStorage = tokenSessionStorage !== null;
 
     if (hasTokenInLocalStorage) {
-      const response = await api.post('/validate-token');
+      const data = {
+        token: tokenLocalStorage
+      }
+
+      const response = await api.post('/validate-token', data);
       const { isTokenValid } = response.data;
 
       if (!isTokenValid) {
         localStorage.removeItem(TOKEN_KEY);
       }
+
       return isTokenValid;
     }
 
