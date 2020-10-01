@@ -6,17 +6,8 @@ export const hasToken = () => {
 
   const tokenLocalStorage = localStorage.getItem(TOKEN_KEY);
   const tokenSessionStorage = sessionStorage.getItem(TOKEN_KEY);
-  
-  const hasTokenInLocalStorage = tokenLocalStorage !== null;
-  const hasTokenInSessionStorage = tokenSessionStorage !== null;
 
-  if (hasTokenInLocalStorage || hasTokenInSessionStorage) {
-    return true;
-  }
-
-  else {
-    return false;
-  }
+  return !!tokenLocalStorage || !!tokenSessionStorage
 };
 
 export const hasTokenValid = async () => {
@@ -67,17 +58,8 @@ export const hasTokenValid = async () => {
 export const getToken = () => {
   const tokenLocalStorage = localStorage.getItem(TOKEN_KEY);
   const tokenSessionStorage = sessionStorage.getItem(TOKEN_KEY);
-  
-  const hasTokenInLocalStorage = tokenLocalStorage !== null;
-  const hasTokenInSessionStorage = tokenSessionStorage !== null;
 
-  if (hasTokenInLocalStorage) {
-    return tokenLocalStorage;
-  }
-
-  if (hasTokenInSessionStorage) {
-    return tokenSessionStorage;
-  }
+  return tokenLocalStorage || tokenSessionStorage;
 };
 
 export const removeToken = () => {
