@@ -1,12 +1,13 @@
 import React, { useState, useEffect, FormEvent, useContext, useRef } from 'react';
 import { ToastContainer } from 'react-toastify';
 
-import TeachersContext, { Teacher } from '../../contexts/TeachersContext';
-
 import PageHeader from '../../components/PageHeader';
 import TeacherItem from '../../components/TeacherItem';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
+
+import api from '../../services/api';
+import TeachersContext, { Teacher } from '../../contexts/TeachersContext';
 
 import loadingAnimated from '../../assets/images/loading.svg';
 import smileIcon from '../../assets/images/icons/smile.svg';
@@ -19,12 +20,16 @@ function TeacherList() {
     quantityTeachers, quantityClasses
   } = useContext(TeachersContext);
 
-  const [subject, setSubject] = useState('');
+  const [idSubject, setIdSubject] = useState('');
   const [weekDay, setWeekDay] = useState('');
   const [time, setTime] = useState('');
 
   const [page, setPage] = useState(1);
-  const perPage = 2;
+  const perPage = 5;
+
+  const [subjects, setSubjects] = useState<any>([
+    { id: '', subject: '' }
+  ]);
 
   const [showLoading, setShowLoading] = useState(false);
   const [scrollRadio, setScrollRadio] = useState(Number);
@@ -39,6 +44,10 @@ function TeacherList() {
   useEffect(() => {
     (async () => {
       try {
+        const response = await api.get('/subjects');
+        const { subjects } = response.data;
+        setSubjects([ ...subjects ]);
+
         await loadTeachers();
       }
       finally {
@@ -55,7 +64,7 @@ function TeacherList() {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); 
+  }, []);
 
   useEffect(() => {
     if (isFirstSearch && scrollRadio > 0) {
@@ -71,7 +80,7 @@ function TeacherList() {
     }
 
     const params = {
-      subject: subject,
+      id_subject: idSubject,
       week_day: weekDay,
       time: time,
       page: page,
@@ -90,7 +99,7 @@ function TeacherList() {
     e.preventDefault();
     
     const params = {
-      subject: subject,
+      id_subject: idSubject,
       week_day: weekDay,
       time: time,
       page: 1,
@@ -125,25 +134,11 @@ function TeacherList() {
           <Select 
             name="subject" 
             label="Matéria"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            options={[
-              { value: 'Biologia', label: 'Biologia' },
-              { value: 'Matemática', label: 'Matemática' },
-              { value: 'Física', label: 'Física' },
-              { value: 'Química', label: 'Quimíca' },
-              { value: 'Português', label: 'Português' },
-              { value: 'Redação', label: 'Redação' },
-              { value: 'História', label: 'História' },
-              { value: 'Filosofia', label: 'Filosofia' },
-              { value: 'Geografia', label: 'Geografia' },
-              { value: 'Sociologia', label: 'Sociologia' },
-              { value: 'Inglês', label: 'Inglês' },
-              { value: 'Espanhol', label: 'Espanhol' },
-              { value: 'Educação Física', label: 'Educação Física' },
-              { value: 'Artes', label: 'Artes' }
-            ]}
-            sort
+            value={idSubject}
+            onChange={(e) => setIdSubject(e.target.value)}
+            options={subjects.map((subject: { id: number, subject: string }) => {
+              return { value: `${subject.id}`, label: subject.subject }
+            })}
           />
           <Select 
             name="week_day" 
