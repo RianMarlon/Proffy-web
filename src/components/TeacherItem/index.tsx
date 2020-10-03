@@ -1,5 +1,4 @@
 import React from 'react';
-import Gravatar from 'react-gravatar';
 import { toast } from 'react-toastify';
 
 import api from '../../services/api';
@@ -30,18 +29,10 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
   return (
     <article className="teacher-item">
       <header>
-        {
-          teacher.avatar ? (
-            <img
-              src={teacher.avatar}
-              alt="Avatar"
-            />
-          ) : (
-            <Gravatar
-              email={teacher.email}
-            />
-          )
-        }
+        <img
+          src={teacher.avatar}
+          alt="Avatar"
+        />
         <div>
           <strong>{`${teacher.first_name} ${teacher.last_name}`}</strong>
           <span>{teacher.subject}</span>

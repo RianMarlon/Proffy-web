@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { removeToken } from '../../services/auth';
-import Gravatar from 'react-gravatar';
 
 import offIcon from '../../assets/images/icons/off-icon.svg';
 
@@ -25,19 +24,10 @@ const HeaderProfile: React.FC<HeaderProfileProps> = ({ image, name, email }) => 
   return (
     <header className="header-profile-container">
       <Link to="/my-profile" className="my-profile-block">
-        {
-          image ? (
-            <img
-              src={image}
-              alt="Avatar"
-            />
-          ) : (
-            <Gravatar
-              email={email}
-              alt="Avatar"
-            />
-          )
-        }
+        <img
+          src={image}
+          alt="Avatar"
+        />
         <p>
           { name }
         </p>

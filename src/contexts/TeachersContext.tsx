@@ -23,7 +23,7 @@ export interface Teacher {
 }
 
 interface ParamsProps {
-  subject: string,
+  id_subject: string,
   week_day: string,
   time: string,
   page: number,

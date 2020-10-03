@@ -55,7 +55,7 @@ function Register() {
     setDifferentPasswords(false);
   }, [form.confirmPassword]);
 
-  function handleSubmitCadastre(e: FormEvent) {
+  function handleSubmitRegister(e: FormEvent) {
     e.preventDefault();
 
     validateFields();
@@ -112,7 +112,7 @@ function Register() {
                   <div className="form-container">
                     <h1>Cadastro</h1>
                     <p>Preencha todos os dados abaixo para começar</p>
-                    <form onSubmit={handleSubmitCadastre}>
+                    <form onSubmit={handleSubmitRegister}>
                       <InputLabel
                         name="firstName"
                         type="text"

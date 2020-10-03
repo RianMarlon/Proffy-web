@@ -1,6 +1,5 @@
 import React, { useState, FormEvent, useEffect, ChangeEvent } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import Gravatar from 'react-gravatar';
 
 import api from '../../services/api';
 import useForm from '../../hooks/useForm';
@@ -191,19 +190,10 @@ function Profile() {
               />
               <div className="header-content">
                 <div className="avatar">
-                  {
-                    srcAvatar || me.avatar ? (
-                      <img
-                        src={srcAvatar || me.avatar}
-                        alt="Avatar"
-                      />
-                    ) : (
-                      <Gravatar
-                        email={me.email}
-                        alt="Avatar"
-                      />
-                    )
-                  }
+                  <img
+                    src={srcAvatar || me.avatar}
+                    alt="Avatar"
+                  />
                   <button type="button">
                     <label htmlFor="avatar">
                       <img 
