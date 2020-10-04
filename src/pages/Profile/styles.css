@@ -6,7 +6,6 @@
 
 #my-profile-form .page-header {
   height: 70vh;
-  min-width: 90%;
   display: flex;
   flex-direction: column;
   background-color: var(--color-primary);
@@ -95,7 +94,6 @@
   line-height: 2.25rem;
   text-align: center;
   color: var(--color-text-in-primary);
-  text-align: center;
 }
 
 #my-profile-form main {

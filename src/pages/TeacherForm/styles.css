@@ -101,8 +101,9 @@
   border: none;
   color: var(--color-primary);
   font-family: 'Archivo';
-  font-size: 700;
-  font-weight: 300;
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+  font-weight: 600;
   cursor: pointer;
   transition: color 0.2s linear;
 }
