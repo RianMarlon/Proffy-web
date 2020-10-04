@@ -1,6 +1,5 @@
 import React, { useState, FormEvent, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import Gravatar from 'react-gravatar';
 
 import api from '../../services/api';
 import useForm from '../../hooks/useForm';
@@ -24,6 +23,10 @@ function TeacherForm() {
     subject: '',
     cost: '',
   }
+
+  const [subjects, setSubjects] = useState<any>([
+    { id: '', subject: '' }
+  ]);
 
   const [
     form, errors,
@@ -51,6 +54,12 @@ function TeacherForm() {
       .then(response => {
         const { user } = response.data;
         setMe({ ...user });
+      });
+
+    api.get('/subjects')
+      .then(response => {
+        const { subjects } = response.data;
+        setSubjects([...subjects]);
       });
   }, []);
 
@@ -98,7 +107,7 @@ function TeacherForm() {
     const data = {
       whatsapp: form.whatsapp,
       biography: form.biography,
-      subject: form.subject,
+      id_subject: form.subject,
       cost: form.cost,
       schedules: scheduleItems
     }
@@ -108,7 +117,10 @@ function TeacherForm() {
         setIsSuccess(true);
       })
       .catch(({ response }) => {
-        const messageError = response.data.error;
+        const data = response.data;
+        const messageError = data.error ? data.error 
+          : 'Ocorreu um erro inesperado!';
+          
         toast.error(messageError, {
           autoClose: 5000
         });
@@ -139,19 +151,10 @@ function TeacherForm() {
                   <legend>Seus dados</legend>
                   <div className="photo-whatsapp-block">
                     <div className="photo">
-                      {
-                        me.avatar ? (
-                          <img
-                            src={me.avatar}
-                            alt="Avatar"
-                          />
-                        ) : (
-                          <Gravatar
-                            email={me.email}
-                            alt="Avatar"
-                          />
-                        )
-                      }
+                      <img
+                        src={me.avatar}
+                        alt="Avatar"
+                      />
                       <p>
                         { me.first_name }
                       </p>
@@ -188,28 +191,17 @@ function TeacherForm() {
                   <div className="about-class">
                     <Select 
                       name="subject"
+                      label="Matéria"
+                      labelError="Matéria não informada"
+                      error={errors.subject}
                       value={form.subject}
                       onChange={updateField}
-                      label="Matéria"
-                      options={[
-                        { value: 'Biologia', label: 'Biologia' },
-                        { value: 'Matemática', label: 'Matemática' },
-                        { value: 'Física', label: 'Física' },
-                        { value: 'Química', label: 'Quimíca' },
-                        { value: 'Português', label: 'Português' },
-                        { value: 'Redação', label: 'Redação' },
-                        { value: 'História', label: 'História' },
-                        { value: 'Filosofia', label: 'Filosofia' },
-                        { value: 'Geografia', label: 'Geografia' },
-                        { value: 'Sociologia', label: 'Sociologia' },
-                        { value: 'Inglês', label: 'Inglês' },
-                        { value: 'Espanhol', label: 'Espanhol' },
-                        { value: 'Educação Física', label: 'Educação Física' },
-                        { value: 'Artes', label: 'Artes' }
-                      ]}
-                      sort
+                      options={subjects.map((subject: { id: number, subject: string }) => {
+                        return { value: `${subject.id}`, label: subject.subject }
+                      })}
+                      required={true}
                     />
-                    <Input 
+                    <Input
                       name="cost"
                       type="text"
                       pattern="^[\d,.]+$"
@@ -238,9 +230,9 @@ function TeacherForm() {
                         <div className="schedule-item">
                           <Select 
                             name="week_day"
+                            label="Dia da semana"
                             value={scheduleItem.week_day}
                             onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
-                            label="Dia da semana"
                             options={[
                               { value: '0', label: 'Domingo' },
                               { value: '1', label: 'Segunda-feira' },
