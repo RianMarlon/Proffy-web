@@ -17,7 +17,7 @@ import './styles.css';
 function TeacherList() {
   const {
     teachers, getTeachers,
-    quantityTeachers, quantityClasses
+    quantityTeachers
   } = useContext(TeachersContext);
 
   const [idSubject, setIdSubject] = useState('');
@@ -75,7 +75,7 @@ function TeacherList() {
   }, [scrollRadio]);
 
   async function loadTeachers() {
-    if (quantityClasses !== 0 && perPage * page >= quantityClasses + perPage) {
+    if (quantityTeachers !== 0 && perPage * page >= quantityTeachers + perPage) {
       return;
     }
 
