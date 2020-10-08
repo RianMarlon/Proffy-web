@@ -35,7 +35,6 @@ interface TeachersContextData {
   getTeachers(params: ParamsProps): Promise<void>,
   setTeachers(teacher: Teacher[]): void,
   quantityTeachers: number,
-  quantityClasses: number,
 }
 
 const TeachersContext = createContext<TeachersContextData>({} as TeachersContextData);
@@ -43,10 +42,9 @@ const TeachersContext = createContext<TeachersContextData>({} as TeachersContext
 export const TeachersProvider: React.FC = ({ children }) => {
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [quantityTeachers, setQuantityTeachers] = useState(0);
-  const [quantityClasses, setQuantityClasses] = useState(0);
 
   async function getTeachers(params: ParamsProps) {
-    if (params.per_page * params.page > quantityClasses + params.per_page) {
+    if (params.per_page * params.page > quantityTeachers + params.per_page) {
       return;
     }
 
@@ -55,12 +53,9 @@ export const TeachersProvider: React.FC = ({ children }) => {
     if (response) {
       const data = response.data;
   
-      const newTeachers = data.classesByPage.map((teacher: Teacher) => {
-        return { ...teacher };
-      });
-
-      setQuantityTeachers(data.quantityTeachers);
-      setQuantityClasses(data.quantityClasses);
+      const newTeachers = [ ...data.classes_by_page ]
+      
+      setQuantityTeachers(data.quantity_teachers);
 
       if (params.page === 1) {
         setTeachers([...newTeachers]);
@@ -74,7 +69,7 @@ export const TeachersProvider: React.FC = ({ children }) => {
 
   return (
     <TeachersContext.Provider 
-      value={{teachers, getTeachers, setTeachers, quantityTeachers, quantityClasses}}
+      value={{teachers, getTeachers, setTeachers, quantityTeachers}}
     >
       {children}
     </TeachersContext.Provider>
