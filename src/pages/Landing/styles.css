@@ -2,7 +2,7 @@
   width: 100%;
   min-height: 100vh;
 
-  padding: 4rem 3rem;
+  padding: 4rem 2rem;
 
   display: flex;
   flex-direction: column;
@@ -15,7 +15,7 @@
 
 #page-landing header {
   width: 100%;
-  max-width: 80%;
+  max-width: 95%;
   justify-self: center;
   align-self: center;
   margin-bottom: 6rem;
@@ -23,7 +23,7 @@
 
 #page-landing-content {
   width: 100%;
-  max-width: 80%;
+  max-width: 95%;
   height: 100%;
 }
 
@@ -97,7 +97,12 @@
 
 .buttons-container a img {
   width: 4rem;
-  margin-right: 2.4rem;
+  margin-left: 1.5rem;
+  margin-right: 1rem;
+}
+
+.buttons-container a p {
+  margin-right: 1.5rem;
 }
 
 .total-connections {
