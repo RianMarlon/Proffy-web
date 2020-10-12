@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://192.168.1.6:3333',
+  baseURL: 'https://proffy-app-server.herokuapp.com/',
 });
 
 api.interceptors.request.use(async (config: AxiosRequestConfig) => {

@@ -17,7 +17,7 @@ const PrivateRoute = ({component, ...rest}: any) => {
   const history = useHistory();
 
   hasTokenValid().then((response) => {
-    if (!response) history.push("/");
+    if (!response) history.push('/');
   });
   
   const routeComponent = (props: any) => {
