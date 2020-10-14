@@ -1,10 +1,11 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { removeToken } from '../../services/auth';
 
 import offIcon from '../../assets/images/icons/off-icon.svg';
 
 import './styles.css';
+import AuthContext from '../../contexts/AuthContext';
 
 export interface HeaderProfileProps {
   image: string,
@@ -14,11 +15,11 @@ export interface HeaderProfileProps {
 
 const HeaderProfile: React.FC<HeaderProfileProps> = ({ image, name, email }) => {
 
-  const history = useHistory();
+  const { checkToken } = useContext(AuthContext);
 
   function onClickOff() {
     removeToken();
-    history.push('/');
+    checkToken();
   }
 
   return (
