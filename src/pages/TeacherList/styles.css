@@ -76,11 +76,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Poppins';
-  font-size: 2rem;
-  line-height: 2.75rem;
-  text-align: center;
-  color: var(--color-text-complement);
 }
 
 #page-teacher-list main .no-results p {
