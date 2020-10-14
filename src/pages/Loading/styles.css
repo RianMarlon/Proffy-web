@@ -1,0 +1,13 @@
+.loading-container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+}
+
+.loading-container img {
+  width: 20rem;
+  height: 20rem;
+}
