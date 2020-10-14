@@ -1,10 +1,12 @@
-import React, { useState, useEffect, FormEvent } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState, useEffect, FormEvent, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 import useForm from '../../hooks/useForm';
 import api from '../../services/api';
 import { TOKEN_KEY } from '../../services/auth';
+
+import AuthContext from '../../contexts/AuthContext';
 
 import InputLabel from '../../components/InputLabel';
 import InputPasword from '../../components/InputPassword';
@@ -16,7 +18,7 @@ import './styles.css';
 
 function Login() {
 
-  const history = useHistory();
+  const { checkToken } = useContext(AuthContext);
 
   const initialFields = {
     email: '',
@@ -74,7 +76,7 @@ function Login() {
           sessionStorage.setItem(TOKEN_KEY, token);
         }
 
-        history.push('/home');
+        checkToken();
       })
       .catch(({ response }) => {
         const data = response.data;
